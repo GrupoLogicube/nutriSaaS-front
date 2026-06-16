@@ -26,7 +26,7 @@ const DashboardStats = () => {
       <CardStats 
         title="Soporte Pendiente" 
         value="5" 
-        colorClass="bg-gradient-to-br from-orange-500 to-orange-700" 
+        colorClass="bg-gradient-to-br from-sky-400 to-blue-600" 
         icon={Bell} 
       />
     </div>

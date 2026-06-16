@@ -127,7 +127,7 @@ const PlanningTab = ({ patient, setPatient, onChange }) => {
                                 onChange={(e) => {
                                     if (e.target.value !== 'custom') onChange(e); // Si selecciona un preset, actualiza el valor
                                 }}
-                                className="flex-1 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-white text-sm rounded-lg focus:ring-2 focus:ring-teal-500 outline-none p-2.5"
+                                className="flex-1 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-white text-sm rounded-xl focus:ring-2 focus:ring-sky-500 outline-none p-2.5"
                             >
                                 <option value="1.2">Sedentario</option>
                                 <option value="1.375">Ligero</option>
@@ -145,16 +145,16 @@ const PlanningTab = ({ patient, setPatient, onChange }) => {
                                     name="factorActividad" 
                                     value={patient.factorActividad || '1.2'} 
                                     onChange={onChange}
-                                    className="w-full pl-8 pr-2 py-2.5 bg-white dark:bg-slate-800 border border-teal-200 dark:border-teal-900 text-teal-700 dark:text-teal-400 font-bold text-sm rounded-lg focus:ring-2 focus:ring-teal-500 outline-none transition-all shadow-sm"
+                                    className="w-full pl-8 pr-2 py-2.5 bg-white dark:bg-slate-800 border border-sky-200 dark:border-sky-900 text-sky-700 dark:text-sky-400 font-bold text-sm rounded-xl focus:ring-2 focus:ring-sky-500 outline-none transition-all shadow-sm"
                                     title="Puedes editar el valor manualmente"
                                 />
                             </div>
                         </div>
                     </div>
 
-                    <div className="bg-teal-50 dark:bg-teal-900/20 p-4 rounded-lg flex justify-between items-center border border-teal-100 dark:border-teal-800/50 mt-2">
-                        <span className="text-teal-800 dark:text-teal-300 font-bold text-sm">Gasto Energético Total (GET)</span>
-                        <span className="text-xl font-bold text-teal-700 dark:text-teal-400">{get} kcal</span>
+                    <div className="bg-sky-50 dark:bg-sky-950/20 p-4 rounded-xl flex justify-between items-center border border-sky-100 dark:border-sky-800/50 mt-2">
+                        <span className="text-sky-850 dark:text-sky-300 font-bold text-sm">Gasto Energético Total (GET)</span>
+                        <span className="text-xl font-bold text-sky-700 dark:text-sky-450">{get} kcal</span>
                     </div>
                 </div>
             </Card>
@@ -175,7 +175,7 @@ const PlanningTab = ({ patient, setPatient, onChange }) => {
                 </div>
                 
                 <div className="border-t border-slate-100 dark:border-slate-700 pt-4 space-y-5">
-                    <h5 className="text-xs font-bold text-teal-600 uppercase">Distribución de Macronutrientes</h5>
+                    <h5 className="text-xs font-bold text-sky-600 uppercase">Distribución de Macronutrientes</h5>
                     
                     {/* Proteína */}
                     <div>

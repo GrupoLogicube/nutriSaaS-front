@@ -33,7 +33,7 @@ const AdminDashboard = ({ user, onLogout, isDark, toggleTheme }) => {
   };
 
   return (
-    <div className="flex h-screen bg-slate-50 dark:bg-[#0f172a] font-sans text-sm transition-colors duration-300">
+    <div className="flex h-screen bg-sky-50/30 dark:bg-[#020813] font-sans text-sm transition-colors duration-300">
       
       {/* 1. BARRA LATERAL */}
       <Sidebar 
@@ -63,7 +63,7 @@ const AdminDashboard = ({ user, onLogout, isDark, toggleTheme }) => {
         />
 
         {/* ÁREA DE VISTAS DINÁMICAS */}
-        <main className="flex-1 overflow-y-auto bg-slate-50 dark:bg-[#0f172a] p-6 transition-colors duration-300">
+        <main className="flex-1 overflow-y-auto bg-sky-50/30 dark:bg-[#020813] p-6 transition-colors duration-300">
           <div className="container mx-auto max-w-7xl">
             
             {/* ESCENARIO A: SUPER ADMIN GLOBAL */}
@@ -90,11 +90,11 @@ const AdminDashboard = ({ user, onLogout, isDark, toggleTheme }) => {
                     )}
 
                     {activeView === 'menus' && (
-                        <div className="bg-white dark:bg-[#1e293b] rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-12 flex flex-col items-center justify-center text-slate-400 h-64 text-center">
+                        <div className="bg-white dark:bg-[#0a1128] rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-12 flex flex-col items-center justify-center text-slate-400 h-64 text-center">
                             <Utensils size={48} className="mb-4 opacity-20" />
                             <p className="font-bold">Gestión de Menús</p>
                             <p className="text-xs">Seleccionado: {selectedEmpresa.nombre}</p>
-                            <span className="text-[10px] mt-2 bg-orange-100 text-orange-600 px-2 py-1 rounded">Próximamente</span>
+                            <span className="text-[10px] mt-2 bg-sky-100 text-sky-600 dark:bg-sky-950/40 dark:text-sky-400 px-2 py-1 rounded-xl font-semibold">Próximamente</span>
                         </div>
                     )}
                 </>

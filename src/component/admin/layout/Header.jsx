@@ -9,7 +9,7 @@ const Header = ({
     toggleTheme 
 }) => {
   return (
-    <header className="h-16 bg-white dark:bg-[#1e293b] border-b border-slate-200 dark:border-slate-700/50 flex items-center justify-between px-6 shrink-0 transition-colors duration-300">
+    <header className="h-16 bg-white/80 dark:bg-[#0a1128]/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between px-6 shrink-0 transition-colors duration-300">
         <div className="flex items-center gap-4">
           <button onClick={() => setSidebarOpen(!sidebarOpen)} className="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white transition-colors">
             <Menu size={24} />
@@ -19,13 +19,13 @@ const Header = ({
           </h2>
         </div>
         <div className="flex items-center gap-4">
-          <button onClick={toggleTheme} className="text-slate-500 dark:text-slate-300 hover:text-orange-500 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+          <button onClick={toggleTheme} className="text-slate-500 dark:text-slate-300 hover:text-sky-500 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors">
             {isDark ? <Sun size={20} /> : <Moon size={20} />}
           </button>
           <div className="relative">
             <button className="text-slate-500 dark:text-slate-300 hover:text-slate-800 dark:hover:text-white relative p-1">
               <Bell size={20} />
-              <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-orange-500 rounded-full border-2 border-white dark:border-[#1e293b]"></span>
+              <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-sky-500 rounded-full border-2 border-white dark:border-[#0a1128]"></span>
             </button>
           </div>
         </div>

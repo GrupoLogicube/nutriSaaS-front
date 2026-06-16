@@ -24,7 +24,7 @@ const MeasurementsTab = ({ patient, setPatient, onChange, evaluaciones, setEvalu
     let status = '', color = '', bg = '';
     if (numVal < 18.5) { status = 'Bajo Peso'; color = 'text-blue-600'; bg = 'bg-blue-100 dark:bg-blue-900/30'; }
     else if (numVal < 24.9) { status = 'Normopeso'; color = 'text-green-600'; bg = 'bg-green-100 dark:bg-green-900/30'; }
-    else if (numVal < 29.9) { status = 'Sobrepeso'; color = 'text-orange-600'; bg = 'bg-orange-100 dark:bg-orange-900/30'; }
+    else if (numVal < 29.9) { status = 'Sobrepeso'; color = 'text-sky-600'; bg = 'bg-sky-100 dark:bg-sky-950/30'; }
     else { status = 'Obesidad'; color = 'text-red-600'; bg = 'bg-red-100 dark:bg-red-900/30'; }
     return { value: val, status, color, bg };
   }, [patient.peso, patient.altura]);
@@ -125,7 +125,7 @@ const MeasurementsTab = ({ patient, setPatient, onChange, evaluaciones, setEvalu
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* 1. Antropometría General */}
             <Card title="Antropometría y Complexión" icon={Scale}>
-                <div className="mb-5 bg-slate-50 dark:bg-slate-800 p-4 rounded-lg flex items-center justify-between border border-slate-100 dark:border-slate-700">
+                <div className="mb-5 bg-sky-50/50 dark:bg-[#0a1128] p-4 rounded-2xl flex items-center justify-between border border-slate-100 dark:border-slate-800">
                     <div><p className="text-xs font-bold text-slate-500 uppercase">IMC Calculado</p><p className={`text-3xl font-bold ${imcData.color}`}>{imcData.value}</p></div>
                     {imcData.status && (<span className={`px-3 py-1 rounded-full text-xs font-bold ${imcData.bg} ${imcData.color}`}>{imcData.status}</span>)}
                 </div>
@@ -135,11 +135,11 @@ const MeasurementsTab = ({ patient, setPatient, onChange, evaluaciones, setEvalu
                     <InputGroup label="Cintura" type="number" name="cintura" value={patient.cintura} onChange={onChange} suffix="cm" />
                     <InputGroup label="Cadera" type="number" name="cadera" value={patient.cadera} onChange={onChange} suffix="cm" />
                 </div>
-                <div className="pt-4 border-t border-slate-100 dark:border-slate-700">
+                <div className="pt-4 border-t border-slate-100 dark:border-slate-850">
                     <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-2 block">Somatotipo Predominante</label>
                     <div className="flex gap-2">
                         {['Ectomorfo', 'Mesomorfo', 'Endomorfo'].map(tipo => (
-                            <button key={tipo} type="button" onClick={() => onChange({target: {name: 'somatotipo', value: tipo, type: 'text'}})} className={`flex-1 py-2 text-[10px] sm:text-xs font-bold rounded-lg border transition-all ${patient.somatotipo === tipo ? 'bg-teal-600 border-teal-600 text-white shadow-md' : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-teal-300 dark:hover:border-teal-700'}`}>{tipo}</button>
+                            <button key={tipo} type="button" onClick={() => onChange({target: {name: 'somatotipo', value: tipo, type: 'text'}})} className={`flex-1 py-2 text-[10px] sm:text-xs font-bold rounded-xl border transition-all ${patient.somatotipo === tipo ? 'bg-sky-500 border-sky-500 text-white shadow-md' : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-500 hover:border-sky-300 dark:hover:border-sky-800'}`}>{tipo}</button>
                         ))}
                     </div>
                 </div>
@@ -149,7 +149,7 @@ const MeasurementsTab = ({ patient, setPatient, onChange, evaluaciones, setEvalu
             <Card title="Composición Corporal" icon={Activity}>
                 <div className="space-y-6">
                     <div>
-                        <h5 className="text-xs font-bold text-teal-600 uppercase mb-3">Análisis de Masas (Bioimpedancia)</h5>
+                        <h5 className="text-xs font-bold text-sky-600 uppercase mb-3">Análisis de Masas (Bioimpedancia)</h5>
                         <div className="grid grid-cols-2 gap-4">
                             <InputGroup label="% Masa Grasa" type="number" step="0.1" name="masaGrasa" value={patient.masaGrasa} onChange={onChange} suffix="%" />
                             <InputGroup label="% M. Musculo Esq." type="number" step="0.1" name="masaMuscular" value={patient.masaMuscular} onChange={onChange} suffix="%" />
@@ -159,8 +159,8 @@ const MeasurementsTab = ({ patient, setPatient, onChange, evaluaciones, setEvalu
                             <InputGroup label="Grasa Visceral" type="number" step="0.1" name="grasaVisceral" value={patient.grasaVisceral} onChange={onChange} suffix="niv" />
                         </div>
                     </div>
-                    <div className="border-t border-slate-100 dark:border-slate-700 pt-4">
-                        <h5 className="text-xs font-bold text-teal-600 uppercase mb-3">Perímetros Rápidos</h5>
+                    <div className="border-t border-slate-100 dark:border-slate-800 pt-4">
+                        <h5 className="text-xs font-bold text-sky-600 uppercase mb-3">Perímetros Rápidos</h5>
                         <div className="grid grid-cols-2 gap-4">
                             <InputGroup label="Brazo (R)" type="number" name="brazoR" value={patient.brazoR} onChange={onChange} suffix="cm" />
                             <InputGroup label="Brazo (C)" type="number" name="brazoC" value={patient.brazoC} onChange={onChange} suffix="cm" />
@@ -184,8 +184,8 @@ const MeasurementsTab = ({ patient, setPatient, onChange, evaluaciones, setEvalu
                 <div className="space-y-6">
                     <InputGroup label="Presión Arterial" name="presionArterial" value={patient.presionArterial} onChange={onChange} placeholder="120/80" />
                     
-                    <div className="pt-4 border-t border-slate-100 dark:border-slate-700">
-                        <h5 className="text-xs font-bold text-teal-600 uppercase mb-3">Panel Sanguíneo Base</h5>
+                    <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
+                        <h5 className="text-xs font-bold text-sky-600 uppercase mb-3">Panel Sanguíneo Base</h5>
                         <div className="grid grid-cols-2 gap-4">
                             <InputGroup label="Hemoglobina" name="hemoglobina" value={patient.hemoglobina} onChange={onChange} suffix="g/dL" />
                             <InputGroup label="Glucosa" name="glucosa" value={patient.glucosa} onChange={onChange} suffix="mg/dL" />
@@ -197,8 +197,8 @@ const MeasurementsTab = ({ patient, setPatient, onChange, evaluaciones, setEvalu
 
                     {/* ZONA DE PARÁMETROS DINÁMICOS */}
                     {(patient.custom_bio_markers && patient.custom_bio_markers.length > 0) && (
-                        <div className="pt-4 border-t border-slate-100 dark:border-slate-700">
-                            <h4 className="text-[10px] font-bold text-orange-500 uppercase mb-3 flex items-center gap-1">
+                        <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
+                            <h4 className="text-[10px] font-bold text-sky-500 uppercase mb-3 flex items-center gap-1">
                                 Marcadores Personalizados
                             </h4>
                             <div className="grid grid-cols-2 gap-4">
@@ -219,7 +219,7 @@ const MeasurementsTab = ({ patient, setPatient, onChange, evaluaciones, setEvalu
                     {/* BOTÓN AÑADIR PARÁMETRO */}
                     <button 
                         onClick={() => setIsBioModalOpen(true)}
-                        className="w-full mt-2 py-2 border-2 border-dashed border-slate-300 dark:border-slate-600 text-slate-500 dark:text-slate-400 font-bold text-xs rounded-lg hover:border-teal-500 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/20 transition-all flex items-center justify-center gap-2"
+                        className="w-full mt-2 py-2 border-2 border-dashed border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 font-bold text-xs rounded-2xl hover:border-sky-500 hover:text-sky-600 dark:hover:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-950/20 transition-all flex items-center justify-center gap-2"
                     >
                         <Plus size={14} /> Añadir parámetro extra
                     </button>
@@ -233,17 +233,17 @@ const MeasurementsTab = ({ patient, setPatient, onChange, evaluaciones, setEvalu
                         {chartData ? (
                             <div className="relative w-full h-full">
                                 <div className="absolute inset-0 flex flex-col justify-between text-[10px] text-slate-400 font-mono pointer-events-none z-0 pb-6 pl-6">
-                                    <div className="border-b border-slate-200 dark:border-slate-700 w-full h-0 flex items-center"><span>{Math.round(chartData.maxWeight)}kg</span></div>
-                                    <div className="border-b border-slate-100 dark:border-slate-800 w-full h-0"></div>
-                                    <div className="border-b border-slate-200 dark:border-slate-700 w-full h-0 flex items-center"><span>{Math.round(chartData.minWeight)}kg</span></div>
+                                    <div className="border-b border-slate-200 dark:border-slate-800 w-full h-0 flex items-center"><span>{Math.round(chartData.maxWeight)}kg</span></div>
+                                    <div className="border-b border-slate-100 dark:border-slate-850 w-full h-0"></div>
+                                    <div className="border-b border-slate-200 dark:border-slate-800 w-full h-0 flex items-center"><span>{Math.round(chartData.minWeight)}kg</span></div>
                                 </div>
                                 <svg viewBox={`0 0 ${chartData.WIDTH} ${chartData.HEIGHT}`} className="w-full h-full overflow-visible z-10 relative pl-6 pb-6">
-                                    <path d={chartData.pathD} fill="none" stroke="currentColor" strokeWidth="3" className="text-teal-500 dark:text-teal-400 transition-all duration-500 ease-in-out" vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d={chartData.pathD} fill="none" stroke="currentColor" strokeWidth="3" className="text-sky-500 dark:text-sky-400 transition-all duration-500 ease-in-out" vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" />
                                     {chartData.points.map((p, i) => (
                                         <g key={p.id} className="group cursor-pointer">
-                                            <circle cx={p.x} cy={p.y} r="5" className="fill-white dark:fill-slate-800 stroke-teal-600 dark:stroke-teal-400 stroke-2 transition-all group-hover:r-7 group-hover:fill-teal-100" vectorEffect="non-scaling-stroke"/>
+                                            <circle cx={p.x} cy={p.y} r="5" className="fill-white dark:fill-slate-850 stroke-sky-650 dark:stroke-sky-455 stroke-2 transition-all group-hover:r-7 group-hover:fill-sky-100" vectorEffect="non-scaling-stroke"/>
                                             <foreignObject x={p.x - 40} y={p.y - 55} width="80" height="50" className="opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                                                <div xmlns="http://www.w3.org/1999/xhtml" className="flex flex-col items-center justify-center bg-slate-800 text-white text-xs rounded-lg py-1 shadow-lg">
+                                                <div xmlns="http://www.w3.org/1999/xhtml" className="flex flex-col items-center justify-center bg-slate-800 text-white text-xs rounded-2xl py-1 shadow-lg">
                                                     <span className="font-bold">{p.peso} kg</span>
                                                     <span className="text-[10px] text-slate-300">{p.label}</span>
                                                 </div>
@@ -255,7 +255,7 @@ const MeasurementsTab = ({ patient, setPatient, onChange, evaluaciones, setEvalu
                                 </svg>
                             </div>
                         ) : (
-                            <div className="h-full flex flex-col items-center justify-center text-slate-400 text-sm gap-2 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-dashed border-slate-200 dark:border-slate-700 p-6">
+                            <div className="h-full flex flex-col items-center justify-center text-slate-400 text-sm gap-2 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-dashed border-slate-200 dark:border-slate-850 p-6">
                                 <BarChart2 size={32} className="text-slate-300 mb-2"/>
                                 <p>Se necesitan al menos 2 registros de peso en la tabla histórica.</p>
                                 <p className="text-xs">Añade evaluaciones abajo para visualizar la tendencia.</p>
@@ -267,43 +267,43 @@ const MeasurementsTab = ({ patient, setPatient, onChange, evaluaciones, setEvalu
         </div>
 
         {/* --- FILA 3: TABLA MATRIZ HISTÓRICA --- */}
-        <Card title="Matriz Histórica de Perímetros" icon={TrendingUp} className="border-t-4 border-t-teal-500">
-            <div className="bg-teal-50 dark:bg-teal-900/20 text-teal-800 dark:text-teal-300 p-3 rounded-lg text-sm mb-4 border border-teal-100 dark:border-teal-900/30">
+        <Card title="Matriz Histórica de Perímetros" icon={TrendingUp} className="border-t-4 border-t-sky-500">
+            <div className="bg-sky-50 dark:bg-sky-950/20 text-sky-800 dark:text-sky-300 p-3 rounded-2xl text-sm mb-4 border border-sky-100 dark:border-sky-950/30">
                 Registra la evolución del paciente. Los datos de 'Peso' ingresados aquí se reflejarán en el gráfico de tendencia superior.
             </div>
             
-            <div className="overflow-x-auto relative rounded-lg border border-slate-200 dark:border-slate-700 custom-scrollbar pb-2">
+            <div className="overflow-x-auto relative rounded-2xl border border-slate-200 dark:border-slate-800 custom-scrollbar pb-2">
                 <table className="w-full text-sm text-left border-collapse">
-                    <thead className="bg-slate-50 dark:bg-slate-900 text-slate-500 dark:text-slate-400 uppercase font-bold text-[10px] tracking-wider border-b border-slate-200 dark:border-slate-700">
+                    <thead className="bg-slate-50 dark:bg-slate-900 text-slate-500 dark:text-slate-400 uppercase font-bold text-[10px] tracking-wider border-b border-slate-200 dark:border-slate-800">
                         <tr>
                             <th className="px-4 py-4 min-w-[160px] sticky left-0 bg-slate-50 dark:bg-slate-900 z-20 shadow-[1px_0_0_0_#e2e8f0] dark:shadow-[1px_0_0_0_#334155]">Métrica / Fecha</th>
                             {evaluaciones.map((ev, index) => (
-                                <th key={ev.id} className="px-2 py-2 min-w-[130px] text-center border-l border-slate-200 dark:border-slate-700">
+                                <th key={ev.id} className="px-2 py-2 min-w-[130px] text-center border-l border-slate-200 dark:border-slate-800">
                                     <div className="flex flex-col items-center gap-1.5">
-                                        <span className="text-teal-600 dark:text-teal-400 bg-teal-100/50 dark:bg-teal-900/30 px-2 py-0.5 rounded">Eval {index + 1}</span>
-                                        <input type="date" value={ev.fecha} onChange={(e) => handleEvalChange(ev.id, 'fecha', e.target.value)} className="w-full bg-transparent border-b border-slate-300 dark:border-slate-600 focus:border-teal-500 outline-none text-center font-normal text-xs p-1 dark:[&::-webkit-calendar-picker-indicator]:filter dark:[&::-webkit-calendar-picker-indicator]:invert"/>
+                                        <span className="text-sky-600 dark:text-sky-400 bg-sky-100/50 dark:bg-sky-950/30 px-2 py-0.5 rounded-xl">Eval {index + 1}</span>
+                                        <input type="date" value={ev.fecha} onChange={(e) => handleEvalChange(ev.id, 'fecha', e.target.value)} className="w-full bg-transparent border-b border-slate-350 dark:border-slate-650 focus:border-sky-500 outline-none text-center font-normal text-xs p-1 dark:[&::-webkit-calendar-picker-indicator]:filter dark:[&::-webkit-calendar-picker-indicator]:invert"/>
                                     </div>
                                 </th>
                             ))}
-                            <th className="px-3 py-2 w-16 text-center border-l border-slate-200 dark:border-slate-700"><button onClick={addEval} className="text-teal-600 hover:text-teal-700 hover:bg-teal-50 dark:hover:bg-teal-900/30 p-2 rounded-full transition-colors" title="Añadir Evaluación"><PlusCircle size={22} /></button></th>
+                            <th className="px-3 py-2 w-16 text-center border-l border-slate-200 dark:border-slate-800"><button onClick={addEval} className="text-sky-600 hover:text-sky-700 hover:bg-sky-50 dark:hover:bg-sky-950/30 p-2 rounded-full transition-colors" title="Añadir Evaluación"><PlusCircle size={22} /></button></th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                         {metricsList.map((metric) => (
                             <tr key={metric.key} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-                                <td className="px-4 py-3 font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-[#1e293b] sticky left-0 z-10 shadow-[1px_0_0_0_#f1f5f9] dark:shadow-[1px_0_0_0_#334155]">{metric.label}</td>
+                                <td className="px-4 py-3 font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-[#0a1128] sticky left-0 z-10 shadow-[1px_0_0_0_#f1f5f9] dark:shadow-[1px_0_0_0_#334155]">{metric.label}</td>
                                 {evaluaciones.map((ev) => (
-                                    <td key={ev.id} className="p-2 border-l border-slate-100 dark:border-slate-700/50"><input type="number" value={ev[metric.key]} onChange={(e) => handleEvalChange(ev.id, metric.key, e.target.value)} className="w-full text-center bg-transparent border-b border-transparent focus:border-teal-500 outline-none p-1.5 font-medium text-slate-700 dark:text-slate-200 focus:bg-slate-100 dark:focus:bg-slate-900 transition-all rounded" placeholder="-"/></td>
+                                    <td key={ev.id} className="p-2 border-l border-slate-100 dark:border-slate-800/50"><input type="number" value={ev[metric.key]} onChange={(e) => handleEvalChange(ev.id, metric.key, e.target.value)} className="w-full text-center bg-transparent border-b border-transparent focus:border-sky-500 outline-none p-1.5 font-medium text-slate-700 dark:text-slate-200 focus:bg-slate-100 dark:focus:bg-slate-900 transition-all rounded-xl" placeholder="-"/></td>
                                 ))}
-                                <td className="border-l border-slate-100 dark:border-slate-700/50"></td>
+                                <td className="border-l border-slate-100 dark:border-slate-800/50"></td>
                             </tr>
                         ))}
                         <tr>
-                            <td className="px-4 py-2 sticky left-0 bg-white dark:bg-[#1e293b] z-10 shadow-[1px_0_0_0_#f1f5f9] dark:shadow-[1px_0_0_0_#334155]"></td>
+                            <td className="px-4 py-2 sticky left-0 bg-white dark:bg-[#0a1128] z-10 shadow-[1px_0_0_0_#f1f5f9] dark:shadow-[1px_0_0_0_#334155]"></td>
                             {evaluaciones.map((ev) => (
-                                <td key={`del-${ev.id}`} className="p-2 text-center border-l border-slate-100 dark:border-slate-700/50"><button onClick={() => removeEval(ev.id)} className="text-slate-300 hover:text-red-500 p-1 transition-colors" title="Eliminar Evaluación"><Trash2 size={16} /></button></td>
+                                <td key={`del-${ev.id}`} className="p-2 text-center border-l border-slate-100 dark:border-slate-800/50"><button onClick={() => removeEval(ev.id)} className="text-slate-300 hover:text-red-500 p-1 transition-colors" title="Eliminar Evaluación"><Trash2 size={16} /></button></td>
                             ))}
-                            <td className="border-l border-slate-100 dark:border-slate-700/50"></td>
+                            <td className="border-l border-slate-100 dark:border-slate-800/50"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -313,11 +313,11 @@ const MeasurementsTab = ({ patient, setPatient, onChange, evaluaciones, setEvalu
         {/* --- MODAL PARA AÑADIR BIOMARCADOR --- */}
         {isBioModalOpen && (
             <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] flex items-center justify-center p-4 animate-in fade-in duration-200">
-                <div className="bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-200 border border-slate-200 dark:border-slate-700">
+                <div className="bg-white dark:bg-[#0a1128] rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden animate-in zoom-in-95 duration-200 border border-slate-200 dark:border-slate-800">
                     <form onSubmit={handleAddCustomMarker}>
-                        <div className="p-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50">
+                        <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50">
                             <h3 className="font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                                <TestTube size={18} className="text-teal-500"/> Nuevo Biomarcador
+                                <TestTube size={18} className="text-sky-500"/> Nuevo Biomarcador
                             </h3>
                             <button type="button" onClick={() => setIsBioModalOpen(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
                                 <X size={18} />
@@ -329,7 +329,7 @@ const MeasurementsTab = ({ patient, setPatient, onChange, evaluaciones, setEvalu
                                 <input 
                                     required autoFocus type="text" placeholder="Ej: Ácido Úrico, Hierro, Vitamina D..."
                                     value={newMarker.label} onChange={(e) => setNewMarker({...newMarker, label: e.target.value})}
-                                    className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg p-2.5 text-sm outline-none focus:border-teal-500 dark:text-white"
+                                    className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl p-2.5 text-sm outline-none focus:border-sky-500 dark:text-white"
                                 />
                             </div>
                             <div className="flex flex-col">
@@ -337,13 +337,13 @@ const MeasurementsTab = ({ patient, setPatient, onChange, evaluaciones, setEvalu
                                 <input 
                                     type="text" placeholder="Ej: mg/dL, ng/mL, UI/L..."
                                     value={newMarker.unit} onChange={(e) => setNewMarker({...newMarker, unit: e.target.value})}
-                                    className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg p-2.5 text-sm outline-none focus:border-teal-500 dark:text-white"
+                                    className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl p-2.5 text-sm outline-none focus:border-sky-500 dark:text-white"
                                 />
                             </div>
                         </div>
-                        <div className="p-4 border-t border-slate-100 dark:border-slate-700 flex justify-end gap-2">
+                        <div className="p-4 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-2">
                             <button type="button" onClick={() => setIsBioModalOpen(false)} className="px-4 py-2 text-sm font-bold text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">Cancelar</button>
-                            <button type="submit" className="px-4 py-2 text-sm font-bold bg-teal-600 hover:bg-teal-700 text-white rounded-lg shadow-md">Agregar al perfil</button>
+                            <button type="submit" className="px-4 py-2 text-sm font-bold bg-sky-600 hover:bg-sky-700 text-white rounded-xl shadow-md">Agregar al perfil</button>
                         </div>
                     </form>
                 </div>

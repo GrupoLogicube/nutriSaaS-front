@@ -190,55 +190,55 @@ const AgendaView = ({ user }) => {
                         <h1 className="text-2xl font-bold text-slate-800 dark:text-white capitalize">
                             {startOfWeek.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })}
                         </h1>
-                        <div className="flex items-center bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-1 shadow-sm">
-                            <button onClick={prevWeek} className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded text-slate-500"><ChevronLeft size={20} /></button>
-                            <button onClick={goToToday} className="px-3 py-1 text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded">Hoy</button>
-                            <button onClick={nextWeek} className="p-1 hover:bg-slate-100 dark:hover:bg-slate-700 rounded text-slate-500"><ChevronRight size={20} /></button>
+                        <div className="flex items-center bg-white dark:bg-[#020813] rounded-xl border border-slate-200 dark:border-slate-800 p-1 shadow-sm">
+                            <button onClick={prevWeek} className="p-1 hover:bg-slate-100 dark:hover:bg-slate-850 rounded-lg text-slate-500"><ChevronLeft size={20} /></button>
+                            <button onClick={goToToday} className="px-3 py-1 text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-850 rounded-lg">Hoy</button>
+                            <button onClick={nextWeek} className="p-1 hover:bg-slate-100 dark:hover:bg-slate-850 rounded-lg text-slate-500"><ChevronRight size={20} /></button>
                         </div>
                     </div>
                     <button
                         onClick={handleNewBtnClick}
-                        className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg font-bold shadow-md transition-all"
+                        className="btn-brand flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold shadow-md transition-all"
                     >
                         <Plus size={18} /> Nueva Cita
                     </button>
                 </div>
 
                 {/* Grid Visual */}
-                <div className="flex-1 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col overflow-hidden relative">
-                    <div className="grid grid-cols-8 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 z-10">
-                        <div className="p-4 text-center border-r border-slate-200 dark:border-slate-700"><Clock size={20} className="mx-auto text-slate-400" /></div>
+                <div className="flex-1 bg-white dark:bg-[#020813] rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col overflow-hidden relative">
+                    <div className="grid grid-cols-8 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 z-10">
+                        <div className="p-4 text-center border-r border-slate-200 dark:border-slate-800"><Clock size={20} className="mx-auto text-slate-400" /></div>
                         {weekDays.map((day, i) => {
                             const isToday = day.toDateString() === new Date().toDateString();
                             return (
-                                <div key={i} className={`p-3 text-center border-r border-slate-200 dark:border-slate-700 last:border-0 ${isToday ? 'bg-teal-50/50 dark:bg-teal-900/20' : ''}`}>
-                                    <p className={`text-xs font-bold uppercase mb-1 ${isToday ? 'text-teal-600 dark:text-teal-400' : 'text-slate-500 dark:text-slate-400'}`}>{day.toLocaleDateString('es-ES', { weekday: 'short' })}</p>
-                                    <div className={`w-8 h-8 mx-auto flex items-center justify-center rounded-full font-bold text-sm ${isToday ? 'bg-teal-500 text-white shadow-md' : 'text-slate-700 dark:text-white'}`}>{day.getDate()}</div>
+                                <div key={i} className={`p-3 text-center border-r border-slate-200 dark:border-slate-800 last:border-0 ${isToday ? 'bg-sky-50/50 dark:bg-sky-950/20' : ''}`}>
+                                    <p className={`text-xs font-bold uppercase mb-1 ${isToday ? 'text-sky-600 dark:text-sky-400' : 'text-slate-500 dark:text-slate-400'}`}>{day.toLocaleDateString('es-ES', { weekday: 'short' })}</p>
+                                    <div className={`w-8 h-8 mx-auto flex items-center justify-center rounded-full font-bold text-sm ${isToday ? 'bg-sky-500 text-white shadow-md' : 'text-slate-700 dark:text-white'}`}>{day.getDate()}</div>
                                 </div>
                             );
                         })}
                     </div>
                     <div className="flex-1 overflow-y-auto custom-scrollbar relative">
                         <div className="grid grid-cols-8 relative min-w-[800px]">
-                            <div className="border-r border-slate-200 dark:border-slate-700 bg-slate-50/30 dark:bg-slate-900/30">
+                            <div className="border-r border-slate-200 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/30">
                                 {HOURS.map(hour => (
-                                    <div key={hour} className="h-16 border-b border-slate-100 dark:border-slate-800 text-xs text-slate-400 font-medium p-2 text-center relative"><span className="-top-2.5 relative bg-slate-50 dark:bg-[#0f172a] px-1 rounded">{hour}:00</span></div>
+                                    <div key={hour} className="h-16 border-b border-slate-100 dark:border-slate-850 text-xs text-slate-400 font-medium p-2 text-center relative"><span className="-top-2.5 relative bg-slate-50 dark:bg-[#020813] px-1 rounded-md">{hour}:00</span></div>
                                 ))}
                             </div>
                             {weekDays.map((day, dayIndex) => {
                                 const dayEvents = events.filter(ev => new Date(ev.start).toDateString() === day.toDateString());
                                 return (
-                                    <div key={dayIndex} className="relative border-r border-slate-100 dark:border-slate-700/50 last:border-0">
+                                    <div key={dayIndex} className="relative border-r border-slate-100 dark:border-slate-800/50 last:border-0">
                                         {HOURS.map(hour => (
-                                            <div key={hour} onClick={() => handleSlotClick(day, hour)} className="h-16 border-b border-slate-50 dark:border-slate-800 hover:bg-teal-50/30 dark:hover:bg-teal-900/10 transition-colors cursor-pointer group relative">
-                                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100"><Plus size={16} className="text-teal-400" /></div>
+                                            <div key={hour} onClick={() => handleSlotClick(day, hour)} className="h-16 border-b border-slate-50 dark:border-slate-850 hover:bg-sky-50/30 dark:hover:bg-sky-950/10 transition-colors cursor-pointer group relative">
+                                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100"><Plus size={16} className="text-sky-450" /></div>
                                             </div>
                                         ))}
                                         {dayEvents.map(ev => {
                                             const style = getEventStyle(ev);
                                             const isOnline = ev.type === 'Online';
                                             return (
-                                                <div key={ev.id} style={style} className={`absolute inset-x-1 p-2 rounded-lg border text-xs shadow-sm cursor-pointer overflow-hidden hover:scale-[1.02] hover:z-10 transition-all flex flex-col justify-between ${isOnline ? 'bg-purple-100 dark:bg-purple-900/40 border-purple-200 dark:border-purple-700/50 text-purple-800 dark:text-purple-200' : 'bg-blue-100 dark:bg-blue-900/40 border-blue-200 dark:border-blue-700/50 text-blue-800 dark:text-blue-200'}`}>
+                                                <div key={ev.id} style={style} className={`absolute inset-x-1 p-2 rounded-xl border text-xs shadow-sm cursor-pointer overflow-hidden hover:scale-[1.02] hover:z-10 transition-all flex flex-col justify-between ${isOnline ? 'bg-purple-100 dark:bg-purple-900/40 border-purple-200 dark:border-purple-700/50 text-purple-800 dark:text-purple-200' : 'bg-blue-100 dark:bg-blue-900/40 border-blue-200 dark:border-blue-700/50 text-blue-800 dark:text-blue-200'}`}>
                                                     <div className="flex justify-between items-start"><span className="font-bold truncate">{ev.patient}</span>{isOnline ? <Video size={12} className="shrink-0" /> : <MapPin size={12} className="shrink-0" />}</div>
                                                     <div className="flex items-center gap-1 opacity-80"><Clock size={10} /><span>{formatTime(ev.start)} ({ev.duration}m)</span></div>
                                                 </div>
@@ -253,25 +253,25 @@ const AgendaView = ({ user }) => {
             </div>
 
             {/* --- SECCIÓN 2: LISTADO DE CITAS (FILTRABLE) --- */}
-            <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
-                <div className="p-5 border-b border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div className="bg-white dark:bg-[#020813] rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+                <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4">
                     <h3 className="font-bold text-lg text-slate-700 dark:text-white flex items-center gap-2">
-                        <List size={20} className="text-teal-500" /> Listado de Citas
+                        <List size={20} className="text-sky-500" /> Listado de Citas
                     </h3>
 
                     {/* Tabs de Filtro */}
-                    <div className="flex bg-slate-100 dark:bg-slate-900 p-1 rounded-lg">
+                    <div className="flex bg-slate-100 dark:bg-slate-900 p-1 rounded-xl">
                         <button
                             onClick={() => setListFilter('week')}
-                            className={`px-4 py-1.5 text-xs font-bold rounded-md transition-all flex items-center gap-2
-                      ${listFilter === 'week' ? 'bg-white dark:bg-slate-700 text-teal-600 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                            className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all flex items-center gap-2
+                      ${listFilter === 'week' ? 'bg-white dark:bg-slate-800 text-sky-650 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
                         >
                             <CalendarDays size={14} /> Esta Semana
                         </button>
                         <button
                             onClick={() => setListFilter('month')}
-                            className={`px-4 py-1.5 text-xs font-bold rounded-md transition-all flex items-center gap-2
-                      ${listFilter === 'month' ? 'bg-white dark:bg-slate-700 text-teal-600 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                            className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all flex items-center gap-2
+                      ${listFilter === 'month' ? 'bg-white dark:bg-slate-800 text-sky-650 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
                         >
                             <CalIcon size={14} /> Este Mes
                         </button>
@@ -280,7 +280,7 @@ const AgendaView = ({ user }) => {
 
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left">
-                        <thead className="text-xs text-slate-500 uppercase bg-slate-50 dark:bg-slate-900/50 border-b border-slate-100 dark:border-slate-700">
+                        <thead className="text-xs text-slate-500 uppercase bg-slate-50 dark:bg-slate-900/50 border-b border-slate-100 dark:border-slate-800">
                             <tr>
                                 <th className="px-6 py-3">Fecha y Hora</th>
                                 <th className="px-6 py-3">Paciente</th>
@@ -289,14 +289,14 @@ const AgendaView = ({ user }) => {
                                 <th className="px-6 py-3">Estado</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
+                        <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                             {filteredListEvents.length > 0 ? (
                                 filteredListEvents.map((ev) => (
-                                    <tr key={ev.id} className="hover:bg-slate-50 dark:hover:bg-slate-700/20 transition-colors">
+                                    <tr key={ev.id} className="hover:bg-slate-50 dark:hover:bg-slate-850/20 transition-colors">
                                         <td className="px-6 py-4 font-bold text-slate-700 dark:text-white">
                                             {ev.start.toLocaleDateString()} <span className="text-slate-400 font-normal mx-1">|</span> {formatTime(ev.start)}
                                         </td>
-                                        <td className="px-6 py-4 text-teal-600 font-medium">{ev.patient}</td>
+                                        <td className="px-6 py-4 text-sky-600 font-medium">{ev.patient}</td>
                                         <td className="px-6 py-4">
                                             <span className={`text-[10px] px-2 py-0.5 rounded border font-bold ${ev.type === 'Online' ? 'bg-purple-50 text-purple-600 border-purple-200' : 'bg-blue-50 text-blue-600 border-blue-200'}`}>
                                                 {ev.type}
@@ -325,9 +325,9 @@ const AgendaView = ({ user }) => {
             {/* --- MODAL DE CREACIÓN --- */}
             {isModalOpen && (
                 <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-2xl w-full max-w-sm animate-in zoom-in-95 duration-200 border border-slate-200 dark:border-slate-700">
+                    <div className="bg-white dark:bg-[#020813] rounded-2xl shadow-2xl w-full max-w-sm animate-in zoom-in-95 duration-200 border border-slate-200 dark:border-slate-800">
                         <form onSubmit={handleCreateEvent}>
-                            <div className="p-5 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
+                            <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
                                 <h3 className="font-bold text-lg dark:text-white">Nueva Cita</h3>
                                 <button type="button" onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-600"><X size={20} /></button>
                             </div>
@@ -341,7 +341,7 @@ const AgendaView = ({ user }) => {
                                             name="date"
                                             type="date"
                                             defaultValue={formData.date}
-                                            className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-2.5 text-sm outline-none focus:border-teal-500 dark:text-white dark:[&::-webkit-calendar-picker-indicator]:filter dark:[&::-webkit-calendar-picker-indicator]:invert"
+                                            className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-2.5 text-sm outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 dark:text-white dark:[&::-webkit-calendar-picker-indicator]:filter dark:[&::-webkit-calendar-picker-indicator]:invert"
                                         />
                                     </div>
                                     <div>
@@ -351,25 +351,25 @@ const AgendaView = ({ user }) => {
                                             name="time"
                                             type="time"
                                             defaultValue={formData.time}
-                                            className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-2.5 text-sm outline-none focus:border-teal-500 dark:text-white dark:[&::-webkit-calendar-picker-indicator]:filter dark:[&::-webkit-calendar-picker-indicator]:invert"
+                                            className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-2.5 text-sm outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 dark:text-white dark:[&::-webkit-calendar-picker-indicator]:filter dark:[&::-webkit-calendar-picker-indicator]:invert"
                                         />
                                     </div>
                                 </div>
                                 <div>
                                     <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Paciente</label>
-                                    <input required name="patient" type="text" placeholder="Nombre del paciente..." className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-2.5 text-sm outline-none focus:border-teal-500 dark:text-white" />
+                                    <input required name="patient" type="text" placeholder="Nombre del paciente..." className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-2.5 text-sm outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 dark:text-white" />
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
                                         <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Tipo</label>
-                                        <select name="type" className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-2.5 text-sm outline-none dark:text-white">
+                                        <select name="type" className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-2.5 text-sm outline-none dark:text-white focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
                                             <option value="Online">Online</option>
                                             <option value="Presencial">Presencial</option>
                                         </select>
                                     </div>
                                     <div>
                                         <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Duración</label>
-                                        <select name="duration" defaultValue={formData.duration} className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg p-2.5 text-sm outline-none dark:text-white">
+                                        <select name="duration" defaultValue={formData.duration} className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-2.5 text-sm outline-none dark:text-white focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
                                             <option value="30">30 min</option>
                                             <option value="45">45 min</option>
                                             <option value="60">1 hora</option>
@@ -378,9 +378,9 @@ const AgendaView = ({ user }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="p-5 border-t border-slate-100 dark:border-slate-700 flex justify-end gap-2 bg-slate-50 dark:bg-slate-800/50 rounded-b-xl">
+                            <div className="p-5 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-2 bg-slate-50 dark:bg-slate-800/50 rounded-b-2xl">
                                 <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-sm text-slate-500 hover:text-slate-700 font-bold">Cancelar</button>
-                                <button type="submit" className="px-4 py-2 text-sm bg-teal-600 hover:bg-teal-700 text-white rounded-lg font-bold shadow">Guardar Cita</button>
+                                <button type="submit" className="btn-brand px-4 py-2 text-sm rounded-xl">Guardar Cita</button>
                             </div>
                         </form>
                     </div>

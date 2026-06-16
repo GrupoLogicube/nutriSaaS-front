@@ -122,28 +122,27 @@ const Login = ({ onLogin }) => { // Ya no necesitamos onAdminShortcut como prop
     const currentLogoDisplay = selectedEmpresa?.logo ? selectedEmpresa.logo : defaultLogo;
 
     return (
-        <div className="min-h-screen flex font-sans overflow-hidden relative">
+        <div className="min-h-screen flex font-sans overflow-hidden relative bg-[#020813]">
 
             {/* BOTÓN ADMIN (Abre el Modal) */}
             <button
                 onClick={() => setShowAdminModal(true)}
-                className="absolute top-4 right-4 z-50 bg-slate-800 text-slate-400 px-3 py-1 rounded border border-slate-700 hover:text-orange-500 hover:border-orange-500 text-xs transition-colors flex items-center gap-2"
+                className="absolute top-4 right-4 z-50 bg-slate-900/80 backdrop-blur-sm text-slate-400 px-3 py-1.5 rounded-xl border border-slate-800 hover:text-sky-400 hover:border-sky-400/50 text-xs transition-all flex items-center gap-2"
             >
                 <Shield size={12} /> Admin Mode
             </button>
 
             {/* LADO IZQUIERDO: Branding */}
-            <div className="hidden lg:flex lg:w-1/2 bg-[#1e293b] relative items-center justify-center p-16 overflow-hidden">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-blob"></div>
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-green-500 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-blob animation-delay-2000"></div>
+            <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-sky-400 via-blue-600 to-blue-950 relative items-center justify-center p-16 overflow-hidden">
+                <div className="absolute top-0 right-0 w-96 h-96 bg-sky-300 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob"></div>
+                <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob animation-delay-2000"></div>
 
                 <div className="relative z-10 max-w-lg text-left flex flex-col">
 
                     {/* IMAGEN IZQUIERDA DINÁMICA */}
-
                     <div className="mb-10 relative group self-center">
-                        <div className="absolute -inset-4 bg-orange-600/40 rounded-lg blur-2xl opacity-80 group-hover:opacity-100 transition duration-500"></div>
-                        <div className="relative bg-[#1e293b] border border-orange-500/30 p-4 rounded-2xl shadow-2xl shadow-orange-500/20 z-10">
+                        <div className="absolute -inset-4 bg-sky-400/30 rounded-2xl blur-2xl opacity-80 group-hover:opacity-100 transition duration-500"></div>
+                        <div className="relative bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-2xl shadow-2xl z-10">
                             {/* AQUI ESTÁ EL CAMBIO: src={currentLogoDisplay} en vez de defaultLogo */}
                             <img
                                 src={currentLogoDisplay}
@@ -154,27 +153,27 @@ const Login = ({ onLogin }) => { // Ya no necesitamos onAdminShortcut como prop
                     </div>
 
 
-                    <h1 className="text-5xl font-bold text-white mb-2 brand-font leading-tight">
+                    <h1 className="text-5xl font-extrabold text-white mb-2 brand-font leading-tight tracking-tight">
                         ¡Hola, Nutri!
                     </h1>
-                    <h2 className="text-5xl font-bold text-orange-500 mb-8 brand-font leading-tight">
+                    <h2 className="text-5xl font-extrabold text-sky-200 mb-8 brand-font leading-tight tracking-tight">
                         Tu consultorio ahora fluye mejor.
                     </h2>
 
                     <div className="mb-12">
-                        <p className="text-slate-300 text-lg leading-relaxed mb-2 font-light">
+                        <p className="text-sky-100 text-lg leading-relaxed mb-2 font-medium">
                             Gestión inteligente para nutricionistas modernos.
                         </p>
-                        <p className="text-slate-400 text-lg leading-relaxed">
+                        <p className="text-sky-200/80 text-lg leading-relaxed font-light">
                             Dedícate a tus pacientes, nosotros nos encargamos de las dietas, los cálculos y la agenda.
                         </p>
                     </div>
 
-                    <div className="border-t border-slate-700 pt-8 mt-8">
-                        <div className="flex gap-1 text-yellow-400 mb-2">
+                    <div className="border-t border-white/10 pt-8 mt-8">
+                        <div className="flex gap-1 text-sky-300 mb-2">
                             {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
                         </div>
-                        <p className="text-slate-400 italic text-sm">
+                        <p className="text-sky-200/90 italic text-sm">
                             "Desde que uso Nutria, salgo a tiempo de la consulta."
                         </p>
                     </div>
@@ -182,12 +181,12 @@ const Login = ({ onLogin }) => { // Ya no necesitamos onAdminShortcut como prop
             </div>
 
             {/* LADO DERECHO: Formulario */}
-            <div className="w-full lg:w-1/2 bg-[#0f172a] flex flex-col justify-center items-center p-8 lg:p-24 relative">
+            <div className="w-full lg:w-1/2 bg-[#020813] flex flex-col justify-center items-center p-8 lg:p-24 relative">
                 <div className="w-full max-w-md">
 
                     {/* IMAGEN DERECHA DINÁMICA */}
                     <div className="flex justify-center mb-8 relative">
-                        <div className="w-24 h-24 bg-[#1e293b] rounded-full flex items-center justify-center shadow-2xl shadow-orange-900/20 border border-slate-700 p-4 overflow-hidden relative group">
+                        <div className="w-24 h-24 bg-[#0a1128] rounded-2xl flex items-center justify-center shadow-2xl shadow-sky-950/20 border border-slate-800 p-4 overflow-hidden relative group">
                             <img
                                 src={currentLogoDisplay}
                                 alt="Logo Empresa"
@@ -205,7 +204,7 @@ const Login = ({ onLogin }) => { // Ya no necesitamos onAdminShortcut como prop
 
                     <form onSubmit={handleRealLogin} className="space-y-6">
                         {error && (
-                            <div className="bg-red-500/10 border border-red-500/50 text-red-500 text-sm p-3 rounded text-center">
+                            <div className="bg-red-500/10 border border-red-500/50 text-red-500 text-sm p-3 rounded-xl text-center">
                                 {error}
                             </div>
                         )}
@@ -217,7 +216,7 @@ const Login = ({ onLogin }) => { // Ya no necesitamos onAdminShortcut como prop
                             </label>
                             <div className="relative">
                                 <select
-                                    className="w-full px-4 py-3.5 rounded-lg bg-[#1e293b] border border-slate-700 text-slate-200 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all appearance-none cursor-pointer hover:bg-slate-800"
+                                    className="w-full px-4 py-3.5 rounded-xl bg-[#0a1128] border border-slate-800 text-slate-200 focus:border-sky-400 focus:ring-1 focus:ring-sky-400 outline-none transition-all appearance-none cursor-pointer hover:bg-slate-900"
                                     onChange={handleEmpresaChange}
                                     value={selectedEmpresa?.id || ''}
                                     required
@@ -241,7 +240,7 @@ const Login = ({ onLogin }) => { // Ya no necesitamos onAdminShortcut como prop
                             <label className="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wide">Usuario</label>
                             <input
                                 name="user" type="text" placeholder="Ej: nutri.juan" required
-                                className="w-full px-4 py-3.5 rounded-lg bg-[#1e293b] border border-slate-700 text-slate-200 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all placeholder-slate-600"
+                                className="w-full px-4 py-3.5 rounded-xl bg-[#0a1128] border border-slate-800 text-slate-200 focus:border-sky-400 focus:ring-1 focus:ring-sky-400 outline-none transition-all placeholder-slate-700"
                             />
                         </div>
 
@@ -249,25 +248,25 @@ const Login = ({ onLogin }) => { // Ya no necesitamos onAdminShortcut como prop
                             <label className="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wide">Contraseña</label>
                             <input
                                 name="pass" type="password" placeholder="••••••••" required
-                                className="w-full px-4 py-3.5 rounded-lg bg-[#1e293b] border border-slate-700 text-slate-200 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all placeholder-slate-600"
+                                className="w-full px-4 py-3.5 rounded-xl bg-[#0a1128] border border-slate-800 text-slate-200 focus:border-sky-400 focus:ring-1 focus:ring-sky-400 outline-none transition-all placeholder-slate-700"
                             />
                         </div>
 
                         <div className="flex justify-end">
-                            <a href="#" className="text-orange-500 hover:text-orange-400 text-sm font-semibold transition-colors">¿Olvidaste tu contraseña?</a>
+                            <a href="#" className="text-sky-400 hover:text-sky-300 text-sm font-semibold transition-colors">¿Olvidaste tu contraseña?</a>
                         </div>
 
                         <button
                             type="submit" disabled={loading}
-                            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-lg transition-all shadow-lg shadow-orange-900/20 transform hover:-translate-y-0.5 mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full bg-gradient-to-r from-sky-400 to-blue-600 hover:from-sky-500 hover:to-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-sky-950/20 transform hover:-translate-y-0.5 mt-4 disabled:opacity-50 disabled:cursor-not-allowed liquid-glass-btn"
                         >
                             {loading ? 'Conectando...' : 'Entrar al Sistema'}
                         </button>
                     </form>
 
-                    <div className="mt-12 text-center border-t border-slate-800 pt-6">
+                    <div className="mt-12 text-center border-t border-slate-900 pt-6">
                         <p className="text-slate-500 text-sm">
-                            ¿Aún no tienes cuenta? <a href="#" className="text-orange-500 font-bold hover:underline">Prueba gratis</a>
+                            ¿Aún no tienes cuenta? <a href="#" className="text-sky-400 font-bold hover:underline">Prueba gratis</a>
                         </p>
                     </div>
                 </div>

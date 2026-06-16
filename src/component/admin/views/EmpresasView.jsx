@@ -73,13 +73,13 @@ const EmpresasView = ({ onSelectEmpresa, token }) => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-slate-800 dark:text-white brand-font">Empresas Registradas</h2>
-        <button onClick={() => setShowModal(true)} className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 text-sm font-bold shadow-md transition-all transform hover:-translate-y-0.5">
+        <button onClick={() => setShowModal(true)} className="btn-brand px-4 py-2 rounded-lg flex items-center gap-2 text-sm font-bold shadow-md transition-all transform hover:-translate-y-0.5">
           <Plus size={16} /> Nueva Empresa
         </button>
       </div>
 
       {loading ? (
-        <div className="flex justify-center py-20 text-orange-500"><Loader2 size={40} className="animate-spin" /></div>
+        <div className="flex justify-center py-20 text-sky-500"><Loader2 size={40} className="animate-spin" /></div>
       ) : empresas.length === 0 ? (
         <div className="text-center py-16 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50/50 dark:bg-slate-800/20">
           <Building2 size={48} className="mx-auto text-slate-300 dark:text-slate-600 mb-4" />
@@ -88,13 +88,13 @@ const EmpresasView = ({ onSelectEmpresa, token }) => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {empresas.map((emp) => (
-            <div key={emp.id} className="bg-white dark:bg-[#1e293b] p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 hover:border-orange-500/50 hover:shadow-md transition-all group">
+            <div key={emp.id} className="bg-white dark:bg-[#0a1128] p-5 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 hover:border-sky-500/50 hover:shadow-md transition-all group">
               <div className="flex justify-between items-start mb-4">
                 <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden shadow-inner border border-slate-200 dark:border-slate-600">
                   {emp.logo_url ? (
                     <img src={emp.logo_url} alt={emp.nombre} className="w-full h-full object-contain" />
                   ) : (
-                    <span className="text-orange-500 font-bold text-xl">{emp.nombre ? emp.nombre[0].toUpperCase() : '?'}</span>
+                    <span className="text-sky-500 font-bold text-xl">{emp.nombre ? emp.nombre[0].toUpperCase() : '?'}</span>
                   )}
                 </div>
                 <span className={`text-[10px] px-2.5 py-1 rounded-full font-bold uppercase tracking-wide ${emp.estado === 'activo' ? 'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400' : 'bg-red-100 text-red-600'}`}>
@@ -107,7 +107,7 @@ const EmpresasView = ({ onSelectEmpresa, token }) => {
                   DB: {emp.nombre_bd}
                 </span>
               </div>
-              <button onClick={() => onSelectEmpresa(emp)} className="w-full py-2.5 bg-slate-50 dark:bg-slate-800 hover:bg-orange-500 hover:text-white text-slate-600 dark:text-slate-300 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-2 group-hover:bg-orange-500 group-hover:text-white">
+              <button onClick={() => onSelectEmpresa(emp)} className="w-full py-2.5 btn-brand-soft text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-2">
                 Administrar <ChevronRight size={14} />
               </button>
             </div>
@@ -119,15 +119,15 @@ const EmpresasView = ({ onSelectEmpresa, token }) => {
         <form onSubmit={handleCreate}>
           <div className="mb-4">
             <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Nombre Comercial</label>
-            <input autoFocus type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 focus:ring-2 focus:ring-orange-500 outline-none dark:text-white" placeholder="Ej: Clínica Salud Total" required />
+            <input autoFocus type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 focus:ring-2 focus:ring-sky-500 outline-none dark:text-white" placeholder="Ej: Clínica Salud Total" required />
           </div>
           <div className="mb-6">
             <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Logo (Opcional)</label>
-            <input type="file" accept="image/*" onChange={(e) => setLogo(e.target.files[0])} className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 dark:file:bg-slate-700 dark:file:text-slate-300" />
+            <input type="file" accept="image/*" onChange={(e) => setLogo(e.target.files[0])} className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 dark:file:bg-slate-700 dark:file:text-slate-300" />
           </div>
           <div className="flex justify-end gap-3">
             <button type="button" onClick={() => setShowModal(false)} className="px-4 py-2 text-slate-500 font-bold text-sm">Cancelar</button>
-            <button type="submit" disabled={creating} className="px-6 py-2 bg-orange-500 text-white rounded-lg font-bold text-sm flex items-center gap-2">
+            <button type="submit" disabled={creating} className="px-6 py-2 bg-gradient-to-r from-sky-400 to-blue-600 hover:from-sky-500 hover:to-blue-700 text-white rounded-xl font-bold text-sm flex items-center gap-2">
               {creating && <Loader2 size={16} className="animate-spin" />} Crear
             </button>
           </div>

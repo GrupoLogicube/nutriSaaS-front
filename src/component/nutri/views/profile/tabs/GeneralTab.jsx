@@ -32,10 +32,10 @@ const GeneralTab = ({ patient, setPatient, onChange }) => {
             <div className="flex flex-col sm:flex-row gap-6 mb-6 items-center sm:items-start">
                 {/* Avatar Placeholder */}
                 <div className="relative group cursor-pointer">
-                    <div className="w-24 h-24 rounded-full bg-slate-100 dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-600 flex items-center justify-center overflow-hidden transition-all group-hover:border-teal-500">
-                        <User size={40} className="text-slate-400 group-hover:text-teal-500 transition-colors" />
+                    <div className="w-24 h-24 rounded-full bg-slate-100 dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-600 flex items-center justify-center overflow-hidden transition-all group-hover:border-sky-500">
+                        <User size={40} className="text-slate-400 group-hover:text-sky-500 transition-colors" />
                     </div>
-                    <div className="absolute bottom-0 right-0 bg-teal-600 text-white p-1.5 rounded-full border-2 border-white dark:border-[#1e293b] shadow-sm">
+                    <div className="absolute bottom-0 right-0 bg-sky-600 text-white p-1.5 rounded-full border-2 border-white dark:border-[#020813] shadow-sm">
                         <Camera size={14} />
                     </div>
                 </div>
@@ -91,8 +91,8 @@ const GeneralTab = ({ patient, setPatient, onChange }) => {
                                 onClick={() => toggleTag(tag)}
                                 className={`px-3 py-1.5 text-xs font-bold rounded-full transition-all border
                                     ${isActive 
-                                        ? 'bg-teal-100 dark:bg-teal-900/40 border-teal-300 dark:border-teal-700 text-teal-700 dark:text-teal-300 shadow-sm' 
-                                        : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-teal-400 dark:hover:border-teal-600'
+                                        ? 'bg-sky-100 dark:bg-sky-950/40 border-sky-300 dark:border-sky-700 text-sky-700 dark:text-sky-300 shadow-sm' 
+                                        : 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-sky-400 dark:hover:border-sky-600'
                                     }`}
                             >
                                 {isActive ? '✓ ' : '+ '}{tag}

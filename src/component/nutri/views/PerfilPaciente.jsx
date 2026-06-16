@@ -139,7 +139,7 @@ const PerfilPaciente = ({ patientData, onBack }) => {
   ];
 
   return (
-    <div className="flex flex-col h-full bg-slate-50 dark:bg-[#0f172a] relative">
+    <div className="flex flex-col h-full bg-slate-50 dark:bg-[#020813] relative">
       
       {/* HEADER */}
       <div className="flex justify-between items-center mb-6">
@@ -157,8 +157,7 @@ const PerfilPaciente = ({ patientData, onBack }) => {
         <button 
             onClick={handleSave}
             disabled={isSaving}
-            className={`flex items-center gap-2 px-6 py-2 rounded-lg font-bold shadow-md transition-all
-                ${isSaving ? 'bg-teal-800 text-teal-200 cursor-wait' : 'bg-teal-600 hover:bg-teal-700 text-white'}`}
+            className={`flex items-center gap-2 px-6 py-2 rounded-xl font-bold shadow-md transition-all btn-brand ${isSaving ? 'opacity-70 cursor-wait' : ''}`}
         >
             {isSaving ? <Activity size={18} className="animate-spin"/> : <Save size={18} />} 
             <span className="hidden sm:inline">{isSaving ? 'Guardando...' : 'Guardar Cambios'}</span>
@@ -173,8 +172,8 @@ const PerfilPaciente = ({ patientData, onBack }) => {
                 onClick={() => setActiveTab(tab.id)} 
                 className={`flex items-center gap-2 px-4 py-3 text-sm font-bold border-b-2 transition-colors whitespace-nowrap 
                     ${activeTab === tab.id 
-                    ? 'border-teal-500 text-teal-600 dark:text-teal-400 bg-slate-100/50 dark:bg-slate-800/50 rounded-t-lg' 
-                    : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/30 rounded-t-lg'}`}
+                    ? 'border-sky-500 text-sky-600 dark:text-sky-400 bg-slate-100/50 dark:bg-slate-800/50 rounded-t-xl' 
+                    : 'border-transparent text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/30 rounded-t-xl'}`}
             >
                 <tab.icon size={16} /> {tab.label}
             </button>
