@@ -17,10 +17,37 @@ export const authHeaders = (token, empresaId) => ({
 });
 
 /**
- * Wrapper genérico de fetch con manejo de errores uniforme.
+ * Wrapper genérico de fetch con manejo de errores uniforme e interceptor global.
+ * Inyecta automáticamente los headers de autenticación y X-Tenant-ID.
  * Retorna { data, error, status }.
  */
 const apiFetch = async (url, options = {}) => {
+  // --- INTERCEPTOR GLOBAL ---
+  const token = localStorage.getItem('token');
+  const tenantId = localStorage.getItem('tenant_id');
+
+  const headers = new Headers(options.headers || {});
+  
+  // Si el usuario está autenticado, inyectar headers
+  if (token) {
+    headers.set('Authorization', `Bearer ${token}`);
+  }
+  if (tenantId) {
+    headers.set('X-Tenant-ID', tenantId);
+    headers.set('X-Empresa-ID', tenantId); // Mantenemos compatibilidad con el backend actual
+  }
+
+  // Asegurar Content-Type si no está presente
+  if (!headers.has('Content-Type')) {
+    headers.set('Content-Type', 'application/json');
+  }
+  if (!headers.has('Accept')) {
+    headers.set('Accept', 'application/json');
+  }
+
+  options.headers = headers;
+  // -------------------------
+
   try {
     const res = await fetch(url, options);
     const contentType = res.headers.get('Content-Type') || '';

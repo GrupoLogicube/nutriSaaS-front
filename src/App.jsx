@@ -43,9 +43,34 @@ export default function App() {
     else document.documentElement.classList.remove("dark");
   }, [isDark]);
 
+  useEffect(() => {
+    // Si hay un usuario inicial (ej. MOCK_ADMIN) y no está en localStorage, lo guardamos
+    if (user && !localStorage.getItem('token')) {
+      handleLogin(user);
+    }
+  }, []);
+
   // --- MANEJADORES ---
-  const handleLogout = () => setUser(null);
-  const handleLogin = (userData) => setUser(userData);
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('tenant_id');
+    setUser(null);
+  };
+  
+  const handleLogin = (userData) => {
+    // Guardar en localStorage para el interceptor global
+    if (userData?.token) {
+      localStorage.setItem('token', userData.token);
+    }
+    
+    // Obtener el ID del tenant/empresa (soporte para login normal y admin)
+    const tenantId = userData?.empresaConfig?.id || userData?.id_empresa || userData?.user?.id_empresa;
+    if (tenantId) {
+      localStorage.setItem('tenant_id', tenantId);
+    }
+    
+    setUser(userData);
+  };
 
   // --- RENDERIZADO CONDICIONAL (El cerebro de tu App) ---
   const renderDashboard = () => {
@@ -133,7 +158,7 @@ export default function App() {
         🔧 MODO DEV
       </h4>
       <button
-        onClick={() => setUser(MOCK_ADMIN)}
+        onClick={() => handleLogin(MOCK_ADMIN)}
         style={{
           background: "#3b82f6",
           color: "white",
@@ -146,7 +171,7 @@ export default function App() {
         Ver como Admin
       </button>
       <button
-        onClick={() => setUser(MOCK_NUTRI)}
+        onClick={() => handleLogin(MOCK_NUTRI)}
         style={{
           background: "#10b981",
           color: "white",
@@ -159,7 +184,7 @@ export default function App() {
         Ver como Nutri
       </button>
       <button
-        onClick={() => setUser(null)}
+        onClick={handleLogout}
         style={{
           background: "#ef4444",
           color: "white",
