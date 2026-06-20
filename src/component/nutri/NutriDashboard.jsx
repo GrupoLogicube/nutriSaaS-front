@@ -14,6 +14,7 @@ import TeamView from './views/TeamView';
 import AnalyticsView from './views/AnalyticsView';
 import SubscriptionView from './views/SubscriptionView';
 import NuevoPacienteView from '../Pacientes/NuevoPacienteView';
+import AIAssistantWidget from './ui/AIAssistantWidget';
 
 // ─── Animated Page Wrapper ────────────────────────────────────────────────────
 // Uses a key trick: when activeView changes, the component unmounts/remounts
@@ -146,6 +147,9 @@ const NutriDashboard = ({ user, onLogout, isDark, toggleTheme }) => {
                     </div>
                 </main>
             </div>
+
+            {/* AI Assistant Widget (Global en el dashboard del Nutricionista) */}
+            <AIAssistantWidget />
         </div>
     );
 };

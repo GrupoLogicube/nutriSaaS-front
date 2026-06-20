@@ -3,7 +3,7 @@ import { Users, Star, Shield } from 'lucide-react'; // Agregué Shield para el b
 import AdminLoginModal from './component/auth/AdminLoginModal';
 import defaultLogo from './assets/logonutriaserio.png';
 
-const Login = ({ onLogin }) => { // Ya no necesitamos onAdminShortcut como prop
+const Login = ({ onLogin, onBackToLanding }) => { // Ya no necesitamos onAdminShortcut como prop
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
@@ -125,12 +125,20 @@ const Login = ({ onLogin }) => { // Ya no necesitamos onAdminShortcut como prop
         <div className="min-h-screen flex font-sans overflow-hidden relative bg-[#020813]">
 
             {/* BOTÓN ADMIN (Abre el Modal) */}
-            <button
-                onClick={() => setShowAdminModal(true)}
-                className="absolute top-4 right-4 z-50 bg-slate-900/80 backdrop-blur-sm text-slate-400 px-3 py-1.5 rounded-xl border border-slate-800 hover:text-sky-400 hover:border-sky-400/50 text-xs transition-all flex items-center gap-2"
-            >
-                <Shield size={12} /> Admin Mode
-            </button>
+            <div className="absolute top-4 right-4 z-50 flex gap-2">
+                <button
+                    onClick={onBackToLanding}
+                    className="bg-slate-900/80 backdrop-blur-sm text-slate-400 px-3 py-1.5 rounded-xl border border-slate-800 hover:text-sky-400 hover:border-sky-400/50 text-xs transition-all flex items-center gap-2"
+                >
+                    Volver a Inicio
+                </button>
+                <button
+                    onClick={() => setShowAdminModal(true)}
+                    className="bg-slate-900/80 backdrop-blur-sm text-slate-400 px-3 py-1.5 rounded-xl border border-slate-800 hover:text-sky-400 hover:border-sky-400/50 text-xs transition-all flex items-center gap-2"
+                >
+                    <Shield size={12} /> Admin Mode
+                </button>
+            </div>
 
             {/* LADO IZQUIERDO: Branding */}
             <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-sky-400 via-blue-600 to-blue-950 relative items-center justify-center p-16 overflow-hidden">

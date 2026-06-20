@@ -1,0 +1,85 @@
+ESTRUCTURA DETALLADA DEL PROYECTO FRONTEND - nutriSaaS-front
+Generado para documentar el avance del proyecto.
+
+Este documento lista minuciosamente todos los archivos y directorios clave del proyecto (excluyendo carpetas de dependencias y compilación como node_modules o dist).
+
+nutriSaaS-front/
+│
+├── Archivos de Configuración y Raíz
+│   ├── index.html                - Archivo HTML principal que carga la aplicación de Vite
+│   ├── package.json              - Dependencias y scripts del proyecto (React, Vite, Tailwind, etc.)
+│   ├── package-lock.json         - Árbol exacto de dependencias instaladas
+│   ├── vite.config.js            - Configuración del bundler Vite
+│   ├── tailwind.config.js        - Configuración de estilos y utilidades de Tailwind CSS
+│   ├── postcss.config.js         - Configuración de PostCSS (usado por Tailwind)
+│   ├── eslint.config.js          - Reglas de linter (ESLint) para asegurar la calidad del código
+│   ├── .gitignore                - Archivos ignorados por el control de versiones de Git
+│   └── README.md                 - Documentación básica del repositorio
+│
+├── public/                       - Archivos estáticos públicos que no pasan por el bundler
+│   └── vite.svg                  - Ícono/Logo de Vite
+│
+└── src/                          - Código fuente principal de la aplicación
+    │
+    ├── Archivos Base
+    │   ├── main.jsx              - Punto de entrada de React (monta la app en el DOM)
+    │   ├── App.jsx               - Componente raíz de la aplicación (enrutamiento base)
+    │   ├── App.css               - Estilos específicos para el componente App
+    │   ├── index.css             - Estilos globales e importaciones principales de Tailwind
+    │   ├── login.jsx             - Vista/Componente de Login general
+    │   └── AdminDashboard.jsx    - Vista principal para el Dashboard del Administrador
+    │
+    ├── assets/                   - Recursos estáticos procesados por el bundler (imágenes, fuentes)
+    │   ├── logonutriaserio.png   - Logo principal utilizado en la aplicación
+    │   └── react.svg             - Ícono de React
+    │
+    ├── services/                 - Servicios para comunicarse con el backend
+    │   └── api.js                - Funciones, interceptores de axios y llamadas a la API
+    │
+    └── component/                - Carpeta principal de componentes de la UI (dividido por dominios)
+        │
+        ├── auth/                 - Componentes relacionados con la autenticación
+        │   └── AdminLoginModal.jsx - Modal para el inicio de sesión del administrador
+        │
+        ├── Pacientes/            - Componentes relacionados con la gestión de Pacientes
+        │   └── NuevoPacienteView.jsx - Vista/Formulario para registrar un nuevo paciente
+        │
+        ├── admin/                - Panel y componentes del Administrador del Sistema (SaaS)
+        │   ├── layout/           - Estructura visual para el administrador
+        │   │   ├── Header.jsx    - Barra de navegación superior
+        │   │   └── Sidebar.jsx   - Menú lateral de navegación
+        │   ├── ui/               - Componentes de interfaz de usuario genéricos para el admin
+        │   │   ├── CardStats.jsx - Tarjeta para mostrar estadísticas
+        │   │   └── ModalForm.jsx - Modal reutilizable para formularios
+        │   └── views/            - Pantallas/Vistas principales del administrador
+        │       ├── DashboardStats.jsx       - Estadísticas generales
+        │       ├── EmpresasView.jsx         - Gestión de empresas asociadas
+        │       └── NutricionistasView.jsx   - Gestión y listado de nutricionistas
+        │
+        └── nutri/                - Panel y componentes para los Nutricionistas
+            ├── layout/           - Estructura visual para el nutricionista
+            │   └── NutriSidebar.jsx         - Menú lateral para el panel del nutricionista
+            │
+            └── views/            - Pantallas/Vistas principales del nutricionista
+                ├── AgendaView.jsx           - Vista del calendario y citas
+                ├── AnalyticsView.jsx        - Vista de análisis y estadísticas de pacientes
+                ├── DietGeneratorView.jsx    - Herramienta para generar dietas y planes alimenticios
+                ├── NotesView.jsx            - Vista para notas privadas o clínicas
+                ├── PacientesView.jsx        - Listado de los pacientes asignados
+                ├── PerfilPaciente.jsx       - Vista general del perfil de un paciente específico
+                ├── ResumenView.jsx          - Resumen general o dashboard principal del nutricionista
+                ├── SettingsView.jsx         - Configuración de la cuenta y preferencias
+                ├── SubscriptionView.jsx     - Detalles del plan de suscripción actual
+                ├── TeamView.jsx             - Gestión de equipo (si aplica)
+                ├── WorkoutGeneratorView.jsx - Herramienta para generar rutinas de entrenamiento
+                │
+                └── profile/                 - Componentes específicos para el perfil del paciente
+                    ├── tabs/                - Pestañas dentro del perfil del paciente
+                    │   ├── GeneralTab.jsx      - Información general del paciente
+                    │   ├── HistoryTab.jsx      - Historial clínico / Anamnesis
+                    │   ├── MeasurementsTab.jsx - Registro de mediciones antropométricas
+                    │   ├── PlanningTab.jsx     - Planeación nutricional del paciente
+                    │   └── TrainingTab.jsx     - Plan de entrenamiento del paciente
+                    └── ui/                  - Componentes de interfaz dentro del perfil
+                        ├── Card.jsx            - Tarjeta reutilizable para la vista de perfil
+                        └── FormComponents.jsx  - Componentes de formulario reutilizables

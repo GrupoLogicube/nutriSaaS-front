@@ -1,0 +1,48 @@
+ANÁLISIS DE FALTANTES EN EL FRONTEND - (Basado en el Demo de Meethealth)
+
+Tras comparar nuestro proyecto actual de NutriSaaS (estructura y componentes) con las funcionalidades mostradas en el video de demostración, se ha identificado una lista de elementos y vistas que actualmente NO tenemos en el Frontend y que deben maquetarse antes de pasar el proyecto al desarrollador Backend.
+
+A continuación, la lista de componentes, vistas y funcionalidades que faltan por integrar en el frontend:
+
+=================================================================================
+1. INTERFAZ GENERAL Y NAVEGACIÓN
+=================================================================================
+[ ] Landing Page Completa: Nos falta la página pública de inicio (fuera del dashboard) que incluya la presentación del software, sección de "Precios" y datos de contacto/soporte.
+[ ] Widget del Asistente de IA: Un chat/asistente flotante (desarrollado por MTEX en el video) que se pueda minimizar y maximizar en cualquier parte del dashboard del nutricionista, donde se le puedan hacer consultas por texto.
+
+=================================================================================
+2. PERFIL DEL PACIENTE (Expediente Clínico)
+=================================================================================
+Actualmente tenemos pestañas de General, Historial, Medidas, Planeación y Entrenamiento, pero según el video faltan las siguientes:
+
+[ ] Pestaña de Marcadores Bioquímicos: Interfaz para ingresar y visualizar resultados de laboratorios y marcadores de sangre.
+[ ] Recordatorio de 24 Horas: Una vista/herramienta crucial dentro de la historia dietética donde el nutricionista ingresa lo que el paciente comió y la interfaz desglosa macros, calorías y tabla de intercambio.
+[ ] Tabla de Intercambio de Alimentos: Una vista o modal para seleccionar el país/región (ej. SMAE para México, tablas de EEUU o Latinoamérica) y distribuir las porciones por tipo de comida (desayuno, comida, cena, colaciones).
+
+=================================================================================
+3. GENERADORES DE DIETAS Y ENTRENAMIENTOS (IA)
+=================================================================================
+Aunque tenemos las vistas "DietGeneratorView" y "WorkoutGeneratorView", hay que asegurar que la interfaz incluya los siguientes controles específicos que salen en el video:
+
+[ ] Selectores de Modelo de IA: Botones o selectores para elegir el tipo de IA: "Modelo Light", "Modelo Smart" y "Modelo Avanzado".
+[ ] Selectores de Análisis Clínico: Switch para encender "Análisis clínico" y seleccionar entre "Conciso", "Completo" o "Detallado".
+[ ] Botones de Acción Post-Generación: En la vista final del plan generado, deben existir los botones: "Exportar PDF", "Enviar al Paciente", "Guardar Cambios" y "Regenerar Plan".
+
+=================================================================================
+4. AGENDA / CITAS
+=================================================================================
+Nuestra vista de Agenda debe incluir un modal robusto para "Programar Cita" con los siguientes campos:
+[ ] Modal de Programar Cita: Selector de paciente, Selector de fecha, Tipo de cita (Videollamada, Llamada telefónica, Presencial), Ubicación/Consultorio y Hora.
+[ ] Estados de Cita: Botones en la cita agendada para marcarla como "Confirmada", "Completada" o "Cancelada".
+
+=================================================================================
+5. CONFIGURACIÓN Y OTROS
+=================================================================================
+[ ] Vista de Referidos (Referrals): Una pantalla nueva o pestaña donde el nutricionista pueda ver su enlace de referidos para invitar a colegas y ganar beneficios.
+[ ] Detalles de Organización (En Configuración): Campos para editar el nombre de la organización/clínica y una descripción breve.
+[ ] Instrucciones Personalizadas de IA (En Configuración): Un campo de texto grande (textarea) donde el nutricionista pueda agregar sus propias directrices o "prompts" base para que la IA los considere siempre al generar dietas.
+
+=================================================================================
+
+Nota para el desarrollador Frontend: 
+Solo es necesario construir y maquetar visualmente estos componentes en React/Tailwind (formularios, modales, botones, widgets). La lógica de inteligencia artificial, exportación real a PDF y correos será conectada posteriormente por el equipo de Backend.

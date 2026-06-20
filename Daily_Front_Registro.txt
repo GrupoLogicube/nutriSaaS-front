@@ -1,0 +1,5 @@
+🗓️ Daily - Front
+
+⏪ Ayer: [No aplica - Inicio de sprint del análisis del video de Meethealth]
+⏩ Hoy: Se desarrolló y estructuró la Landing Page pública (Inicio, Precios, Características) y se configuró el ruteo base en App.jsx para mostrarla por defecto en vez de entrar directamente al Login. Además, se maquetó e integró el Widget flotante del Asistente de IA (MTEX Assistant) dentro del dashboard del nutricionista, con funciones visuales para abrir, minimizar, maximizar y simular el chat.
+🛑 Bloqueos: @Back, avísame cuando tengas listo el endpoint de procesamiento de lenguaje natural o IA para conectar el Widget del Asistente y enviar/recibir mensajes reales.

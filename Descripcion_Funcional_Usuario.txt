@@ -1,0 +1,51 @@
+DESCRIPCIÓN FUNCIONAL DEL SISTEMA NUTRISaaS
+(Documento Orientado al Usuario Final / Cliente)
+
+Bienvenido a NutriSaaS, una plataforma integral diseñada para optimizar la gestión de consultas nutricionales, tanto para los administradores del sistema como para los profesionales de la salud (Nutricionistas) y sus pacientes. 
+
+A continuación, se detalla todo lo que ofrece la plataforma actualmente, estructurado por los diferentes perfiles de usuario:
+
+====================================================================
+1. MÓDULO DE ADMINISTRADOR (Dueño del SaaS)
+====================================================================
+Este módulo está pensado para los dueños de la plataforma. Permite tener un control total sobre las empresas y profesionales que contratan el servicio.
+
+• Inicio de Sesión Seguro (Admin Login): Acceso exclusivo con credenciales de administrador para proteger la información comercial.
+• Panel Principal (Dashboard): Un centro de control que muestra estadísticas clave en tiempo real sobre el uso del sistema, ingresos, y crecimiento de la plataforma.
+• Gestión de Empresas: Permite visualizar, dar de alta y administrar a las diferentes clínicas o empresas que están suscritas al software.
+• Gestión de Nutricionistas: Un listado completo para gestionar a todos los profesionales de la nutrición registrados, monitorear su estado y administrar sus accesos.
+
+====================================================================
+2. MÓDULO DEL NUTRICIONISTA (Profesional de la Salud)
+====================================================================
+Este es el corazón del sistema. Provee al nutricionista de todas las herramientas necesarias para digitalizar y automatizar su consulta clínica, ahorrando tiempo y mejorando el trato con el paciente.
+
+• Panel de Resumen (Dashboard/Resumen): Una vista rápida del día a día del nutricionista, donde puede ver sus citas próximas, tareas pendientes y estadísticas de su consulta.
+• Agenda Inteligente: Un calendario interactivo para gestionar citas, programar revisiones y organizar la disponibilidad del consultorio.
+• Listado de Pacientes: Una base de datos segura y de fácil acceso donde el nutricionista puede buscar, filtrar y agregar nuevos pacientes a su sistema.
+• Analíticas: Gráficas y reportes de progreso general, que ayudan al profesional a entender el avance y comportamiento de su base de pacientes.
+
+Herramientas Avanzadas de Generación:
+• Generador de Dietas (Diet Generator): Una herramienta especializada para armar planes alimenticios estructurados, personalizados y rápidos para cada paciente.
+• Generador de Rutinas (Workout Generator): Creador de planes de entrenamiento y rutinas de ejercicio que complementan el plan nutricional.
+
+Gestión Interna del Nutricionista:
+• Notas Privadas: Un espacio seguro para que el profesional guarde recordatorios o notas clínicas que no están visibles para el paciente.
+• Equipo (Team): Si el nutricionista trabaja en una clínica con asistentes u otros colegas, este apartado permite gestionar los roles del equipo.
+• Suscripción: Panel donde el profesional puede ver el estado de su plan actual contratado en el SaaS, pagos y fechas de corte.
+• Configuración: Personalización del perfil del nutricionista, horarios de atención, preferencias visuales y de cuenta.
+
+====================================================================
+3. EXPEDIENTE CLÍNICO DEL PACIENTE (Perfil del Paciente)
+====================================================================
+Dentro del panel del nutricionista, cada paciente tiene un expediente digital altamente detallado y dividido en pestañas para mantener el orden de la información:
+
+• Información General: Datos personales de contacto, edad, objetivo principal y fotografía del paciente.
+• Historial Clínico (Anamnesis): Registro médico de antecedentes, alergias, patologías, hábitos de vida y consumo, vital para el diagnóstico.
+• Mediciones Antropométricas: Un registro evolutivo para anotar peso, porcentajes de grasa, masa muscular, circunferencias corporales y ver el progreso en el tiempo.
+• Planeación Nutricional: El área donde se guarda y consulta la dieta activa del paciente, los macronutrientes asignados y las porciones.
+• Plan de Entrenamiento: Si aplica, se muestra la rutina de ejercicio recomendada para que el paciente la siga.
+
+====================================================================
+
+En resumen, NutriSaaS es una herramienta completa "todo en uno" que cubre desde la administración comercial del software (SaaS), hasta la operación clínica diaria de un nutricionista, centralizando dietas, rutinas, agenda y expedientes médicos en un solo lugar.

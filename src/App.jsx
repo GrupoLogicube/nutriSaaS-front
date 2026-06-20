@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 // Importa tus componentes originales
 import Login from "./login"; // Asegúrate que la ruta sea correcta (a veces es ./auth/Login)
+import LandingPage from "./component/public/LandingPage";
 import AdminDashboard from "./AdminDashboard";
 import NutriDashboard from "./component/nutri/NutriDashboard";
 
@@ -31,8 +32,9 @@ const MOCK_NUTRI = {
 };
 
 export default function App() {
-  // Iniciamos directamente con el Admin para no perder tiempo (o null si prefieres Login)
-  const [user, setUser] = useState(MOCK_ADMIN);
+  // Iniciamos sin usuario para mostrar la Landing Page por defecto
+  const [user, setUser] = useState(null);
+  const [publicView, setPublicView] = useState("landing"); // 'landing' o 'login'
   const [isDark, setIsDark] = useState(true);
 
   // --- LÓGICA DE TEMA (Original restaurada) ---
@@ -55,6 +57,7 @@ export default function App() {
     localStorage.removeItem('token');
     localStorage.removeItem('tenant_id');
     setUser(null);
+    setPublicView("landing");
   };
   
   const handleLogin = (userData) => {
@@ -75,11 +78,16 @@ export default function App() {
   // --- RENDERIZADO CONDICIONAL (El cerebro de tu App) ---
   const renderDashboard = () => {
     if (!user) {
-      // Pasamos props falsas al login para que no falle
+      if (publicView === "landing") {
+        return <LandingPage onLoginClick={() => setPublicView("login")} isDark={isDark} toggleTheme={toggleTheme} />;
+      }
+      
+      // Si publicView === 'login'
       return (
         <Login
           onLogin={handleLogin}
           onAdminShortcut={() => setUser(MOCK_ADMIN)}
+          onBackToLanding={() => setPublicView("landing")}
         />
       );
     }
@@ -158,6 +166,19 @@ export default function App() {
         🔧 MODO DEV
       </h4>
       <button
+        onClick={() => { setUser(null); setPublicView("landing"); }}
+        style={{
+          background: "#8b5cf6",
+          color: "white",
+          border: "none",
+          padding: "5px 10px",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        Ver Landing
+      </button>
+      <button
         onClick={() => handleLogin(MOCK_ADMIN)}
         style={{
           background: "#3b82f6",
@@ -184,7 +205,7 @@ export default function App() {
         Ver como Nutri
       </button>
       <button
-        onClick={handleLogout}
+        onClick={() => { setUser(null); setPublicView("login"); }}
         style={{
           background: "#ef4444",
           color: "white",
