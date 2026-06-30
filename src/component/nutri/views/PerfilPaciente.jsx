@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  User, Activity, Scale, Calculator, Dumbbell, ArrowLeft, Save, CheckCircle
+  User, Activity, Scale, Calculator, Dumbbell, ArrowLeft, Save, CheckCircle, Droplet
 } from 'lucide-react';
 
 // Importamos las pestañas modulares
@@ -9,6 +9,7 @@ import HistoryTab from './profile/tabs/HistoryTab';
 import MeasurementsTab from './profile/tabs/MeasurementsTab';
 import PlanningTab from './profile/tabs/PlanningTab';
 import TrainingTab from './profile/tabs/TrainingTab';
+import BiochemistryTab from './profile/tabs/BiochemistryTab';
 
 const PerfilPaciente = ({ patientData, onBack }) => {
   const [activeTab, setActiveTab] = useState('general');
@@ -134,6 +135,7 @@ const PerfilPaciente = ({ patientData, onBack }) => {
     { id: 'general', label: 'Información General', icon: User }, 
     { id: 'history', label: 'Historia Clínica', icon: Activity }, 
     { id: 'measurements', label: 'Mediciones', icon: Scale }, 
+    { id: 'biochemistry', label: 'Marcadores Bioquímicos', icon: Droplet },
     { id: 'planning', label: 'Planificación', icon: Calculator }, 
     { id: 'training', label: 'Entrenamiento', icon: Dumbbell }
   ];
@@ -185,6 +187,7 @@ const PerfilPaciente = ({ patientData, onBack }) => {
          {activeTab === 'general' && <GeneralTab patient={patient} setPatient={setPatient} onChange={handleChange} />}
          {activeTab === 'history' && <HistoryTab patient={patient} setPatient={setPatient} onChange={handleChange} />}
          {activeTab === 'measurements' && <MeasurementsTab patient={patient} onChange={handleChange} setPatient={setPatient} evaluaciones={evaluaciones} setEvaluaciones={setEvaluaciones} />}
+         {activeTab === 'biochemistry' && <BiochemistryTab patient={patient} setPatient={setPatient} onChange={handleChange} />}
          {activeTab === 'planning' && <PlanningTab patient={patient} setPatient={setPatient} onChange={handleChange} />}
          {activeTab === 'training' && <TrainingTab rutina={rutina} setRutina={setRutina} patient={patient} onChange={handleChange} />}
       </div>

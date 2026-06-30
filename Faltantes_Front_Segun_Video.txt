@@ -15,9 +15,9 @@ A continuación, la lista de componentes, vistas y funcionalidades que faltan po
 =================================================================================
 Actualmente tenemos pestañas de General, Historial, Medidas, Planeación y Entrenamiento, pero según el video faltan las siguientes:
 
-[ ] Pestaña de Marcadores Bioquímicos: Interfaz para ingresar y visualizar resultados de laboratorios y marcadores de sangre.
-[ ] Recordatorio de 24 Horas: Una vista/herramienta crucial dentro de la historia dietética donde el nutricionista ingresa lo que el paciente comió y la interfaz desglosa macros, calorías y tabla de intercambio.
-[ ] Tabla de Intercambio de Alimentos: Una vista o modal para seleccionar el país/región (ej. SMAE para México, tablas de EEUU o Latinoamérica) y distribuir las porciones por tipo de comida (desayuno, comida, cena, colaciones).
+[x] Pestaña de Marcadores Bioquímicos: Interfaz para ingresar y visualizar resultados de laboratorios y marcadores de sangre.
+[x] Recordatorio de 24 Horas: Una vista/herramienta crucial dentro de la historia dietética donde el nutricionista ingresa lo que el paciente comió y la interfaz desglosa macros, calorías y tabla de intercambio.
+[x] Tabla de Intercambio de Alimentos: Una vista o modal para seleccionar el país/región (ej. SMAE para México, tablas de EEUU o Latinoamérica) y distribuir las porciones por tipo de comida (desayuno, comida, cena, colaciones).
 
 =================================================================================
 3. GENERADORES DE DIETAS Y ENTRENAMIENTOS (IA)

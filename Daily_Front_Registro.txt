@@ -1,5 +1,5 @@
 🗓️ Daily - Front
 
-⏪ Ayer: [No aplica - Inicio de sprint del análisis del video de Meethealth]
-⏩ Hoy: Se desarrolló y estructuró la Landing Page pública (Inicio, Precios, Características) y se configuró el ruteo base en App.jsx para mostrarla por defecto en vez de entrar directamente al Login. Además, se maquetó e integró el Widget flotante del Asistente de IA (MTEX Assistant) dentro del dashboard del nutricionista, con funciones visuales para abrir, minimizar, maximizar y simular el chat.
-🛑 Bloqueos: @Back, avísame cuando tengas listo el endpoint de procesamiento de lenguaje natural o IA para conectar el Widget del Asistente y enviar/recibir mensajes reales.
+⏪ Ayer: Se desarrolló y estructuró la Landing Page pública y se integró el Widget flotante del Asistente de IA (MTEX Assistant) en el dashboard del nutricionista.
+⏩ Hoy: Se completó el Item 2 del análisis (Perfil del Paciente). Se agregó la nueva pestaña de "Marcadores Bioquímicos" para registrar perfil lipídico, glucémico y función renal. Se rediseñó el componente de "Recordatorio de 24 Horas" en la Historia Clínica, incorporando el desglose de calorías y macronutrientes (Kcal, Prot, Cho, Grasas) por cada ingesta. Además, se desarrolló e integró el Modal interactivo de la "Tabla de Intercambio de Alimentos", que permite al usuario seleccionar distintas bases de datos regionales (SMAE, TACO, USDA, etc.) y planificar las porciones por grupo de alimento.
+🛑 Bloqueos: Ninguno por el momento para avanzar al Item 3, pero @Back, se requerirá conectar los endpoints para persistir la nueva estructura del recordatorio de 24 horas (macros) y el estado del modal de equivalencias.

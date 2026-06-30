@@ -1,7 +1,8 @@
 import React from 'react';
-import { Activity, Heart, Utensils, Clock, Apple, Brain, HeartPulse, FileText, Users, AlertCircle } from 'lucide-react';
+import { Activity, Heart, Utensils, Clock, Apple, Brain, HeartPulse, FileText, Users, AlertCircle, Calculator } from 'lucide-react';
 import Card from '../ui/Card';
 import { InputGroup, CheckboxGroup, TextAreaGroup } from '../ui/FormComponents';
+import FoodExchangeModal from '../ui/FoodExchangeModal';
 
 // Lista de Patologías para la sección final (APP/APF)
 const PATHOLOGIES = [
@@ -15,7 +16,8 @@ const PATHOLOGIES = [
 ];
 
 const HistoryTab = ({ patient, setPatient, onChange }) => {
-  
+  const [isExchangeModalOpen, setExchangeModalOpen] = React.useState(false);
+
   // --- LÓGICA DE LA PESTAÑA ---
   const handleSintomasChange = (newValues) => {
     setPatient(prev => ({ ...prev, sintomasGI: newValues }));
@@ -168,15 +170,27 @@ const HistoryTab = ({ patient, setPatient, onChange }) => {
           </div>
       </Card>
 
-      {/* --- FILA 3: MATRIZ DE INGESTA --- */}
-      <Card title="Matriz de Patrón de Ingesta Habitual" icon={Utensils} className="border-l-4 border-l-sky-500">
+      {/* --- FILA 3: MATRIZ DE INGESTA (RECORDATORIO 24H) --- */}
+      <Card title="Recordatorio 24 Horas y Tabla de Intercambio" icon={Utensils} className="border-l-4 border-l-sky-500">
+        <div className="flex justify-end mb-4">
+            <button 
+                onClick={() => setExchangeModalOpen(true)}
+                className="flex items-center gap-2 px-4 py-2 bg-slate-800 dark:bg-slate-700 text-white font-bold rounded-xl text-sm hover:bg-slate-700 dark:hover:bg-slate-600 transition-colors"
+            >
+                <Calculator size={16} /> Ver Tabla de Intercambio
+            </button>
+        </div>
         <div className="overflow-x-auto">
             <table className="w-full text-sm text-left">
                 <thead className="text-xs text-slate-500 dark:text-slate-400 uppercase bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
                     <tr>
-                        <th className="px-4 py-3 rounded-tl-lg w-40">Tiempo</th>
-                        <th className="px-4 py-3 w-40">Hora</th>
-                        <th className="px-4 py-3 rounded-tr-lg">Qué acostumbra comer (Detalle y Cantidades)</th>
+                        <th className="px-4 py-3 rounded-tl-lg w-32">Tiempo</th>
+                        <th className="px-4 py-3 w-32">Hora</th>
+                        <th className="px-4 py-3 min-w-[200px]">Qué acostumbra comer</th>
+                        <th className="px-2 py-3 w-20 text-center">Kcal</th>
+                        <th className="px-2 py-3 w-20 text-center">Prot (g)</th>
+                        <th className="px-2 py-3 w-20 text-center">Cho (g)</th>
+                        <th className="px-2 py-3 w-20 text-center rounded-tr-lg">Grasas (g)</th>
                     </tr>
                 </thead>
                 <tbody className="text-slate-600 dark:text-slate-300 divide-y divide-slate-100 dark:divide-slate-800">
@@ -186,11 +200,23 @@ const HistoryTab = ({ patient, setPatient, onChange }) => {
                             <td className="px-4 py-2">
                                 <div className="relative">
                                     <Clock size={14} className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-400"/>
-                                    <input type="time" value={data.hora} onChange={(e) => handleMatrixChange(key, 'hora', e.target.value)} className="pl-7 w-full bg-transparent border border-slate-200 dark:border-slate-600 rounded text-sm p-1.5 focus:ring-1 focus:ring-sky-500 outline-none dark:[&::-webkit-calendar-picker-indicator]:filter dark:[&::-webkit-calendar-picker-indicator]:invert"/>
+                                    <input type="time" value={data.hora || ''} onChange={(e) => handleMatrixChange(key, 'hora', e.target.value)} className="pl-7 w-full bg-transparent border border-slate-200 dark:border-slate-600 rounded text-sm p-1.5 focus:ring-1 focus:ring-sky-500 outline-none dark:[&::-webkit-calendar-picker-indicator]:filter dark:[&::-webkit-calendar-picker-indicator]:invert"/>
                                 </div>
                             </td>
                             <td className="px-4 py-2">
-                                <input type="text" value={data.detalle} onChange={(e) => handleMatrixChange(key, 'detalle', e.target.value)} placeholder="Ej: 2 huevos, 1 taza de café..." className="w-full bg-transparent border border-slate-200 dark:border-slate-600 rounded text-sm p-1.5 focus:ring-1 focus:ring-sky-500 outline-none placeholder-slate-300 dark:placeholder-slate-600"/>
+                                <input type="text" value={data.detalle || ''} onChange={(e) => handleMatrixChange(key, 'detalle', e.target.value)} placeholder="Ej: 2 huevos, 1 taza de café..." className="w-full bg-transparent border border-slate-200 dark:border-slate-600 rounded text-sm p-1.5 focus:ring-1 focus:ring-sky-500 outline-none placeholder-slate-300 dark:placeholder-slate-600"/>
+                            </td>
+                            <td className="px-2 py-2">
+                                <input type="number" placeholder="0" value={data.kcal || ''} onChange={(e) => handleMatrixChange(key, 'kcal', e.target.value)} className="w-full text-center bg-transparent border border-slate-200 dark:border-slate-600 rounded text-sm p-1.5 focus:ring-1 focus:ring-sky-500 outline-none"/>
+                            </td>
+                            <td className="px-2 py-2">
+                                <input type="number" placeholder="0" value={data.prot || ''} onChange={(e) => handleMatrixChange(key, 'prot', e.target.value)} className="w-full text-center bg-transparent border border-slate-200 dark:border-slate-600 rounded text-sm p-1.5 focus:ring-1 focus:ring-sky-500 outline-none"/>
+                            </td>
+                            <td className="px-2 py-2">
+                                <input type="number" placeholder="0" value={data.cho || ''} onChange={(e) => handleMatrixChange(key, 'cho', e.target.value)} className="w-full text-center bg-transparent border border-slate-200 dark:border-slate-600 rounded text-sm p-1.5 focus:ring-1 focus:ring-sky-500 outline-none"/>
+                            </td>
+                            <td className="px-2 py-2">
+                                <input type="number" placeholder="0" value={data.grasas || ''} onChange={(e) => handleMatrixChange(key, 'grasas', e.target.value)} className="w-full text-center bg-transparent border border-slate-200 dark:border-slate-600 rounded text-sm p-1.5 focus:ring-1 focus:ring-sky-500 outline-none"/>
                             </td>
                         </tr>
                     ))}
@@ -291,6 +317,14 @@ const HistoryTab = ({ patient, setPatient, onChange }) => {
           </div>
       </Card>
 
+      <FoodExchangeModal 
+          isOpen={isExchangeModalOpen} 
+          onClose={() => setExchangeModalOpen(false)} 
+          onSave={(data) => {
+              console.log("Tabla guardada", data);
+              setExchangeModalOpen(false);
+          }}
+      />
     </div>
   );
 };
