@@ -19,7 +19,7 @@ const InputGroup = ({ label, name, value, onChange, type = "text", placeholder, 
           className="w-full bg-transparent border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white text-sm rounded-xl focus:ring-2 focus:ring-sky-500 focus:border-sky-500 block p-3 outline-none transition-all appearance-none"
           required={required}
         >
-          <option value="" disabled className="text-slate-400">Select...</option>
+          <option value="" disabled className="text-slate-400">Seleccionar...</option>
           {options.map((opt) => (
             <option key={opt.value || opt} value={opt.value || opt} className="bg-white dark:bg-slate-900">{opt.label || opt}</option>
           ))}
@@ -112,11 +112,11 @@ const NuevoPacienteView = ({ user, onViewChange }) => {
   };
 
   const tabs = [
-    { id: 'basic', label: 'Basic Info' },
-    { id: 'clinical', label: 'Clinical' },
-    { id: 'anthropometric', label: 'Anthropometric' },
-    { id: 'biochemical', label: 'Biochemical' },
-    { id: 'dietary', label: 'Dietary' },
+    { id: 'basic', label: 'Info Básica' },
+    { id: 'clinical', label: 'Clínica' },
+    { id: 'anthropometric', label: 'Antropométrica' },
+    { id: 'biochemical', label: 'Bioquímica' },
+    { id: 'dietary', label: 'Dietética' },
   ];
 
   return (
@@ -127,9 +127,9 @@ const NuevoPacienteView = ({ user, onViewChange }) => {
                 onClick={() => onViewChange('pacientes')}
                 className="flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white transition-colors border border-slate-200 dark:border-slate-800 px-3 py-1.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50"
             >
-                <ArrowLeft size={16} /> Back to Patients
+                <ArrowLeft size={16} /> Volver a Pacientes
             </button>
-            <h1 className="text-2xl font-bold text-slate-800 dark:text-white">Add New Patient</h1>
+            <h1 className="text-2xl font-bold text-slate-800 dark:text-white">Añadir Nuevo Paciente</h1>
         </div>
 
         {/* TABS (Segmented Control style) */}
@@ -155,33 +155,33 @@ const NuevoPacienteView = ({ user, onViewChange }) => {
             {activeTab === 'basic' && (
                 <div className="space-y-6 max-w-4xl mx-auto animate-in fade-in zoom-in duration-300">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <InputGroup label="Full Name" name="nombre_completo" value={formData.nombre_completo} onChange={handleChange} required />
-                        <InputGroup label="Date of Birth" type="date" name="fecha_nacimiento" value={formData.fecha_nacimiento} onChange={handleChange} required />
+                        <InputGroup label="Nombre Completo" name="nombre_completo" value={formData.nombre_completo} onChange={handleChange} required />
+                        <InputGroup label="Fecha de Nacimiento" type="date" name="fecha_nacimiento" value={formData.fecha_nacimiento} onChange={handleChange} required />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <InputGroup label="Gender" name="sexo_biologico" value={formData.sexo_biologico} onChange={handleChange} options={['Male', 'Female', 'Other']} required />
-                        <InputGroup label="Food Exchange Region" name="region_alimentos" value={formData.region_alimentos} onChange={handleChange} options={['Latin America (Generic)', 'US', 'Europe']} />
+                        <InputGroup label="Sexo" name="sexo_biologico" value={formData.sexo_biologico} onChange={handleChange} options={['Masculino', 'Femenino', 'Otro']} required />
+                        <InputGroup label="Región de Alimentos" name="region_alimentos" value={formData.region_alimentos} onChange={handleChange} options={['Latinoamérica (Genérico)', 'EE. UU.', 'Europa']} />
                     </div>
 
                     <div className="w-full">
-                        <InputGroup label="Cuisine Preference" name="preferencia_cocina" value={formData.preferencia_cocina} onChange={handleChange} placeholder="e.g., Mediterranean, Asian, American" />
+                        <InputGroup label="Preferencia de Cocina" name="preferencia_cocina" value={formData.preferencia_cocina} onChange={handleChange} placeholder="Ej., Mediterránea, Asiática, Americana" />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <InputGroup label="Email" type="email" name="email" value={formData.email} onChange={handleChange} required />
-                        <InputGroup label="Phone" type="tel" name="telefono" value={formData.telefono} onChange={handleChange} required />
+                        <InputGroup label="Correo Electrónico" type="email" name="email" value={formData.email} onChange={handleChange} required />
+                        <InputGroup label="Teléfono" type="tel" name="telefono" value={formData.telefono} onChange={handleChange} required />
                     </div>
 
                     <div className="space-y-6 pt-4">
-                        <TextAreaGroup label="Medical Conditions" name="condiciones_medicas" value={formData.condiciones_medicas} onChange={handleChange} rows={4} />
-                        <TextAreaGroup label="Allergies & Restrictions" name="alergias" value={formData.alergias} onChange={handleChange} rows={4} />
-                        <TextAreaGroup label="Health Goals" name="objetivos_salud" value={formData.objetivos_salud} onChange={handleChange} rows={4} />
+                        <TextAreaGroup label="Condiciones Médicas" name="condiciones_medicas" value={formData.condiciones_medicas} onChange={handleChange} rows={4} />
+                        <TextAreaGroup label="Alergias y Restricciones" name="alergias" value={formData.alergias} onChange={handleChange} rows={4} />
+                        <TextAreaGroup label="Objetivos de Salud" name="objetivos_salud" value={formData.objetivos_salud} onChange={handleChange} rows={4} />
                     </div>
 
                     <div className="flex items-center gap-2 text-xs text-slate-500 mt-4 mb-20">
                         <div className="w-2 h-2 rounded-full bg-sky-500"></div>
-                        Editing mode — changes are kept in memory
+                        Modo de edición — los cambios se mantienen en memoria
                     </div>
                 </div>
             )}
@@ -207,7 +207,7 @@ const NuevoPacienteView = ({ user, onViewChange }) => {
             >
                 {loading && <Loader2 size={16} className="animate-spin" />}
                 {!loading && <Save size={16} />}
-                Save Patient
+                Guardar Paciente
             </button>
         </div>
     </div>

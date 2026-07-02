@@ -58,7 +58,7 @@ const NutriSidebar = ({
                     active={activeView === 'dashboard'} 
                     onClick={() => setActiveView('dashboard')} 
                     icon={LayoutDashboard}
-                    label="Dashboard"
+                    label="Panel de Control"
                 />
                 <NavButton
                     active={activeView === 'pacientes'}
@@ -87,13 +87,13 @@ const NutriSidebar = ({
                     active={activeView === 'dietas'}
                     onClick={() => setActiveView('dietas')}
                     icon={Utensils}
-                    label="Diet Generator"
+                    label="Generador de Dietas"
                 />
                 <NavButton
                     active={activeView === 'rutinas'}
                     onClick={() => setActiveView('rutinas')}
                     icon={Dumbbell}
-                    label="Workout Generator"
+                    label="Generador de Rutinas"
                 />
 
                 {/* GESTIÓN */}

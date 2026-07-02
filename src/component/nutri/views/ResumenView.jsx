@@ -292,7 +292,7 @@ const ResumenView = ({ user, onViewChange, onGoToPatient }) => {
       {/* ── HEADER ── */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800 dark:text-white">Dashboard</h1>
+          <h1 className="text-2xl font-bold text-slate-800 dark:text-white">Panel de Control</h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
             ¡Bienvenido! Aquí está lo que está pasando en tu práctica.
           </p>
