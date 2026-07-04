@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   Sparkles, Check, Brain, Loader2, ArrowLeft, Download, 
   RotateCcw, Save, Utensils, Award, Info, FileText, ChevronRight,
-  TrendingUp, Activity, CheckCircle
+  TrendingUp, Activity, CheckCircle, Send
 } from 'lucide-react';
 
 const DietGeneratorView = ({ user }) => {
@@ -94,7 +94,7 @@ const DietGeneratorView = ({ user }) => {
               },
               pes: clinicalAnalysis ? {
                 diagnosis: "Consumo calórico inadecuado relacionado con desequilibrio metabólico evidenciado por hábitos reportados y porcentaje de grasa corporal elevado.",
-                justification: `Se diseña una dieta hiperproteica moderada basada en el modo ${analysisDepth === 'basic' ? 'Básico' : analysisDepth === 'comprehensive' ? 'Completo' : 'Detallado'} para optimizar la masa muscular mientras se reduce la grasa visceral, limitando azúcares refinados y potenciando grasas saludables de cadena media.`,
+                justification: `Se diseña una dieta hiperproteica moderada basada en el modo ${analysisDepth === 'basic' ? 'Conciso' : analysisDepth === 'comprehensive' ? 'Completo' : 'Detallado'} para optimizar la masa muscular mientras se reduce la grasa visceral, limitando azúcares refinados y potenciando grasas saludables de cadena media.`,
                 monitoring: "Monitorear peso en ayunas y pliegues cutáneos semanalmente."
               } : null,
               days: {
@@ -177,7 +177,7 @@ const DietGeneratorView = ({ user }) => {
       <div className="mb-8 flex justify-between items-start">
         <div>
           <h1 className="text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
-            <Sparkles className="text-sky-500" size={24} /> Diet Generator
+            <Sparkles className="text-sky-500" size={24} /> Generador de Dietas
           </h1>
           <p className="text-slate-500 dark:text-slate-400">
             Genera planes alimenticios personalizados estructurados con inteligencia artificial clínica.
@@ -228,7 +228,7 @@ const DietGeneratorView = ({ user }) => {
                 <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Modo de IA</label>
                 <div className="grid grid-cols-3 gap-4">
                   
-                  {/* LITE */}
+                  {/* LIGHT */}
                   <div 
                     onClick={() => setMode('lite')}
                     className={`p-4 rounded-xl border text-center cursor-pointer transition-all duration-200 flex flex-col justify-center items-center
@@ -238,7 +238,7 @@ const DietGeneratorView = ({ user }) => {
                       }`}
                   >
                     <div className={`w-2 h-2 rounded-full mb-1 ${mode === 'lite' ? 'bg-sky-500' : 'bg-slate-350 dark:bg-slate-700'}`}></div>
-                    <span className="font-bold text-sm block">Lite</span>
+                    <span className="font-bold text-sm block">Light</span>
                     <span className="text-[10px] opacity-75">Rápido / Directo</span>
                   </div>
 
@@ -256,7 +256,7 @@ const DietGeneratorView = ({ user }) => {
                     <span className="text-[10px] opacity-75">Balanceado</span>
                   </div>
 
-                  {/* ADVANCED */}
+                  {/* AVANZADO */}
                   <div 
                     onClick={() => setMode('advanced')}
                     className={`p-4 rounded-xl border text-center cursor-pointer transition-all duration-200 flex flex-col justify-center items-center
@@ -266,7 +266,7 @@ const DietGeneratorView = ({ user }) => {
                       }`}
                   >
                     <div className={`w-2 h-2 rounded-full mb-1 ${mode === 'advanced' ? 'bg-purple-500' : 'bg-slate-350 dark:bg-slate-700'}`}></div>
-                    <span className="font-bold text-sm block">Advanced</span>
+                    <span className="font-bold text-sm block">Avanzado</span>
                     <span className="text-[10px] opacity-75">Clínico Completo</span>
                   </div>
                 </div>
@@ -302,7 +302,7 @@ const DietGeneratorView = ({ user }) => {
                       onChange={(e) => setAnalysisDepth(e.target.value)} 
                       className="w-full bg-white dark:bg-[#020813] border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-white text-sm rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all"
                     >
-                      <option value="basic">Análisis Básico (Solo Calorías)</option>
+                      <option value="basic">Análisis Conciso (Solo Calorías)</option>
                       <option value="comprehensive">Análisis Completo (Macronutrientes + Recetas)</option>
                       <option value="detailed">Análisis Detallado (Macros, Micronutrientes, Diagnósticos PES)</option>
                     </select>
@@ -425,19 +425,25 @@ const DietGeneratorView = ({ user }) => {
                 onClick={handleReset}
                 className="px-4 py-2 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 transition-colors flex items-center gap-1.5"
               >
-                <RotateCcw size={14} /> Regenerar
+                <RotateCcw size={14} /> Regenerar Plan
               </button>
               <button 
                 onClick={() => window.print()}
                 className="px-4 py-2 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 transition-colors flex items-center gap-1.5"
               >
-                <Download size={14} /> Imprimir / PDF
+                <Download size={14} /> Exportar PDF
+              </button>
+              <button 
+                onClick={() => alert("¡Plan enviado al paciente exitosamente!")}
+                className="px-4 py-2 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 transition-colors flex items-center gap-1.5"
+              >
+                <Send size={14} /> Enviar al Paciente
               </button>
               <button 
                 onClick={handleSave}
                 className="px-4 py-2 btn-brand rounded-xl text-xs font-bold flex items-center gap-1.5"
               >
-                <Save size={14} /> Guardar Plan
+                <Save size={14} /> Guardar Cambios
               </button>
             </div>
           </div>

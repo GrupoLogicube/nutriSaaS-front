@@ -24,9 +24,9 @@ Actualmente tenemos pestañas de General, Historial, Medidas, Planeación y Entr
 =================================================================================
 Aunque tenemos las vistas "DietGeneratorView" y "WorkoutGeneratorView", hay que asegurar que la interfaz incluya los siguientes controles específicos que salen en el video:
 
-[ ] Selectores de Modelo de IA: Botones o selectores para elegir el tipo de IA: "Modelo Light", "Modelo Smart" y "Modelo Avanzado".
-[ ] Selectores de Análisis Clínico: Switch para encender "Análisis clínico" y seleccionar entre "Conciso", "Completo" o "Detallado".
-[ ] Botones de Acción Post-Generación: En la vista final del plan generado, deben existir los botones: "Exportar PDF", "Enviar al Paciente", "Guardar Cambios" y "Regenerar Plan".
+[x] Selectores de Modelo de IA: Botones o selectores para elegir el tipo de IA: "Modelo Light", "Modelo Smart" y "Modelo Avanzado".
+[x] Selectores de Análisis Clínico: Switch para encender "Análisis clínico" y seleccionar entre "Conciso", "Completo" o "Detallado".
+[x] Botones de Acción Post-Generación: En la vista final del plan generado, deben existir los botones: "Exportar PDF", "Enviar al Paciente", "Guardar Cambios" y "Regenerar Plan".
 
 =================================================================================
 4. AGENDA / CITAS

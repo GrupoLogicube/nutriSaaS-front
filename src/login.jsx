@@ -4,8 +4,10 @@ import AdminLoginModal from './component/auth/AdminLoginModal';
 import defaultLogo from './assets/logonutriaserio.png';
 
 const Login = ({ onLogin, onBackToLanding }) => { // Ya no necesitamos onAdminShortcut como prop
+    const [view, setView] = useState('login'); // 'login' | 'forgot_password'
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [successMsg, setSuccessMsg] = useState('');
 
     // --- ESTADO PARA EL MODAL DE ADMIN ---
     const [showAdminModal, setShowAdminModal] = useState(false);
@@ -98,6 +100,41 @@ const Login = ({ onLogin, onBackToLanding }) => { // Ya no necesitamos onAdminSh
         } catch (error) {
             console.error('Login error:', error);
             setError('Error al conectar con el servidor');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // --- RECUPERAR CONTRASEÑA ---
+    const handleForgotPassword = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError('');
+        setSuccessMsg('');
+
+        const identifier = e.target.identifier.value;
+
+        try {
+            // Se simula la llamada al endpoint que el backend ya tiene listo
+            const response = await fetch('http://127.0.0.1:8000/api/forgot-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ identifier })
+            });
+
+            if (response.ok) {
+                setSuccessMsg('Si el usuario existe, se han enviado las instrucciones a su correo.');
+                e.target.reset();
+            } else {
+                const data = await response.json();
+                setError(data.message || 'Error al procesar la solicitud.');
+            }
+        } catch (err) {
+            console.error('Forgot password error:', err);
+            setError('Error al conectar con el servidor.');
         } finally {
             setLoading(false);
         }
@@ -205,78 +242,117 @@ const Login = ({ onLogin, onBackToLanding }) => { // Ya no necesitamos onAdminSh
 
                     <div className="text-center mb-10">
                         <h2 className="text-2xl text-white font-bold brand-font mb-2">
-                            Bienvenido a {selectedEmpresa ? selectedEmpresa.nombre : 'tu Madriguera'}
+                            {view === 'login' ? `Bienvenido a ${selectedEmpresa ? selectedEmpresa.nombre : 'tu Madriguera'}` : 'Recuperar Contraseña'}
                         </h2>
-                        <p className="text-slate-400 text-sm">Ingresa para gestionar tus consultas</p>
-                    </div>
-
-                    <form onSubmit={handleRealLogin} className="space-y-6">
-                        {error && (
-                            <div className="bg-red-500/10 border border-red-500/50 text-red-500 text-sm p-3 rounded-xl text-center">
-                                {error}
-                            </div>
-                        )}
-
-                        {/* SELECTOR DE EMPRESA */}
-                        <div>
-                            <label className="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wide">
-                                Selecciona tu Sede / Empresa
-                            </label>
-                            <div className="relative">
-                                <select
-                                    className="w-full px-4 py-3.5 rounded-xl bg-[#0a1128] border border-slate-800 text-slate-200 focus:border-sky-400 focus:ring-1 focus:ring-sky-400 outline-none transition-all appearance-none cursor-pointer hover:bg-slate-900"
-                                    onChange={handleEmpresaChange}
-                                    value={selectedEmpresa?.id || ''}
-                                    required
-                                >
-                                    <option value="">Selecciona tu Sede...</option>
-                                    {empresas.map((emp) => (
-                                        <option key={emp.id} value={emp.id}>
-                                            {emp.nombre}
-                                        </option>
-                                    ))}
-                                </select>
-                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
-                                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label className="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wide">Usuario</label>
-                            <input
-                                name="user" type="text" placeholder="Ej: nutri.juan" required
-                                className="w-full px-4 py-3.5 rounded-xl bg-[#0a1128] border border-slate-800 text-slate-200 focus:border-sky-400 focus:ring-1 focus:ring-sky-400 outline-none transition-all placeholder-slate-700"
-                            />
-                        </div>
-
-                        <div>
-                            <label className="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wide">Contraseña</label>
-                            <input
-                                name="pass" type="password" placeholder="••••••••" required
-                                className="w-full px-4 py-3.5 rounded-xl bg-[#0a1128] border border-slate-800 text-slate-200 focus:border-sky-400 focus:ring-1 focus:ring-sky-400 outline-none transition-all placeholder-slate-700"
-                            />
-                        </div>
-
-                        <div className="flex justify-end">
-                            <a href="#" className="text-sky-400 hover:text-sky-300 text-sm font-semibold transition-colors">¿Olvidaste tu contraseña?</a>
-                        </div>
-
-                        <button
-                            type="submit" disabled={loading}
-                            className="w-full bg-gradient-to-r from-sky-400 to-blue-600 hover:from-sky-500 hover:to-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-sky-950/20 transform hover:-translate-y-0.5 mt-4 disabled:opacity-50 disabled:cursor-not-allowed liquid-glass-btn"
-                        >
-                            {loading ? 'Conectando...' : 'Entrar al Sistema'}
-                        </button>
-                    </form>
-
-                    <div className="mt-12 text-center border-t border-slate-900 pt-6">
-                        <p className="text-slate-500 text-sm">
-                            ¿Aún no tienes cuenta? <a href="#" className="text-sky-400 font-bold hover:underline">Prueba gratis</a>
+                        <p className="text-slate-400 text-sm">
+                            {view === 'login' ? 'Ingresa para gestionar tus consultas' : 'Ingresa tu usuario o correo para recibir las instrucciones'}
                         </p>
                     </div>
+
+                    {view === 'login' ? (
+                        <>
+                            <form onSubmit={handleRealLogin} className="space-y-6">
+                                {error && (
+                                    <div className="bg-red-500/10 border border-red-500/50 text-red-500 text-sm p-3 rounded-xl text-center">
+                                        {error}
+                                    </div>
+                                )}
+
+                                {/* SELECTOR DE EMPRESA */}
+                                <div>
+                                    <label className="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wide">
+                                        Selecciona tu Sede / Empresa
+                                    </label>
+                                    <div className="relative">
+                                        <select
+                                            className="w-full px-4 py-3.5 rounded-xl bg-[#0a1128] border border-slate-800 text-slate-200 focus:border-sky-400 focus:ring-1 focus:ring-sky-400 outline-none transition-all appearance-none cursor-pointer hover:bg-slate-900"
+                                            onChange={handleEmpresaChange}
+                                            value={selectedEmpresa?.id || ''}
+                                            required
+                                        >
+                                            <option value="">Selecciona tu Sede...</option>
+                                            {empresas.map((emp) => (
+                                                <option key={emp.id} value={emp.id}>
+                                                    {emp.nombre}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+                                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wide">Usuario</label>
+                                    <input
+                                        name="user" type="text" placeholder="Ej: nutri.juan" required
+                                        className="w-full px-4 py-3.5 rounded-xl bg-[#0a1128] border border-slate-800 text-slate-200 focus:border-sky-400 focus:ring-1 focus:ring-sky-400 outline-none transition-all placeholder-slate-700"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wide">Contraseña</label>
+                                    <input
+                                        name="pass" type="password" placeholder="••••••••" required
+                                        className="w-full px-4 py-3.5 rounded-xl bg-[#0a1128] border border-slate-800 text-slate-200 focus:border-sky-400 focus:ring-1 focus:ring-sky-400 outline-none transition-all placeholder-slate-700"
+                                    />
+                                </div>
+
+                                <div className="flex justify-end">
+                                    <button type="button" onClick={() => { setView('forgot_password'); setError(''); setSuccessMsg(''); }} className="text-sky-400 hover:text-sky-300 text-sm font-semibold transition-colors">
+                                        ¿Olvidaste tu contraseña?
+                                    </button>
+                                </div>
+
+                                <button
+                                    type="submit" disabled={loading}
+                                    className="w-full bg-gradient-to-r from-sky-400 to-blue-600 hover:from-sky-500 hover:to-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-sky-950/20 transform hover:-translate-y-0.5 mt-4 disabled:opacity-50 disabled:cursor-not-allowed liquid-glass-btn"
+                                >
+                                    {loading ? 'Conectando...' : 'Entrar al Sistema'}
+                                </button>
+                            </form>
+
+                            <div className="mt-12 text-center border-t border-slate-900 pt-6">
+                                <p className="text-slate-500 text-sm">
+                                    ¿Aún no tienes cuenta? <a href="#" className="text-sky-400 font-bold hover:underline">Prueba gratis</a>
+                                </p>
+                            </div>
+                        </>
+                    ) : (
+                        <form onSubmit={handleForgotPassword} className="space-y-6">
+                            {error && (
+                                <div className="bg-red-500/10 border border-red-500/50 text-red-500 text-sm p-3 rounded-xl text-center">
+                                    {error}
+                                </div>
+                            )}
+                            {successMsg && (
+                                <div className="bg-emerald-500/10 border border-emerald-500/50 text-emerald-500 text-sm p-3 rounded-xl text-center">
+                                    {successMsg}
+                                </div>
+                            )}
+                            <div>
+                                <label className="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wide">Usuario o Correo Electrónico</label>
+                                <input
+                                    name="identifier" type="text" placeholder="Ej: nutri.juan o juan@correo.com" required
+                                    className="w-full px-4 py-3.5 rounded-xl bg-[#0a1128] border border-slate-800 text-slate-200 focus:border-sky-400 focus:ring-1 focus:ring-sky-400 outline-none transition-all placeholder-slate-700"
+                                />
+                            </div>
+                            <button
+                                type="submit" disabled={loading}
+                                className="w-full bg-gradient-to-r from-sky-400 to-blue-600 hover:from-sky-500 hover:to-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-sky-950/20 transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed liquid-glass-btn"
+                            >
+                                {loading ? 'Enviando...' : 'Enviar Instrucciones'}
+                            </button>
+                            <div className="flex justify-center mt-6">
+                                <button type="button" onClick={() => { setView('login'); setError(''); setSuccessMsg(''); }} className="text-sky-400 hover:text-sky-300 text-sm font-semibold transition-colors flex items-center gap-2">
+                                    Volver a iniciar sesión
+                                </button>
+                            </div>
+                        </form>
+                    )}
                 </div>
             </div>
 

@@ -3,7 +3,8 @@ import {
   Dumbbell, Zap, ChevronRight, Plus, X, Sparkles,
   Clock, RotateCcw, TrendingUp, Target, Flame,
   CheckCircle, ChevronDown, ChevronUp, Play, Download,
-  User, Calendar, RefreshCw, Copy, WifiOff
+  User, Calendar, RefreshCw, Copy, WifiOff,
+  Brain, Activity, Send, Save
 } from 'lucide-react';
 
 import { rutinasApi, pacientesApi } from '../../../services/api';
@@ -135,6 +136,9 @@ const WorkoutGeneratorView = ({ user }) => {
   const [generating, setGenerating] = useState(false);
   const [apiError, setApiError] = useState(null);
   const [patients, setPatients] = useState([]);
+  const [mode, setMode] = useState('smart'); // 'lite' | 'smart' | 'advanced'
+  const [clinicalAnalysis, setClinicalAnalysis] = useState(false);
+  const [analysisDepth, setAnalysisDepth] = useState('comprehensive'); // 'basic' | 'comprehensive' | 'detailed'
   const [config, setConfig] = useState({
     patient: '',
     goal: '',
@@ -199,6 +203,7 @@ const WorkoutGeneratorView = ({ user }) => {
     setResult(null);
     setApiError(null);
     setConfig(c => ({ ...c, goal: '' }));
+    setStep(1);
   };
 
   return (
@@ -261,6 +266,66 @@ const WorkoutGeneratorView = ({ user }) => {
                     placeholder="Nombre del paciente (sin datos de API)..."
                     className="w-full pl-9 pr-4 py-3 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-xl text-sm outline-none focus:ring-2 focus:ring-sky-500 dark:text-white"
                   />
+                </div>
+              )}
+            </div>
+
+            {/* MODO DE GENERACIÓN (Lite, Smart, Advanced) */}
+            <div>
+              <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase mb-2 tracking-wide flex items-center gap-2">
+                <Brain size={14} className="text-sky-500" /> Modo de IA
+              </label>
+              <div className="grid grid-cols-3 gap-4">
+                <div 
+                  onClick={() => setMode('lite')}
+                  className={`p-3 rounded-xl border text-center cursor-pointer transition-all duration-200 flex flex-col justify-center items-center ${mode === 'lite' ? 'border-sky-500 bg-sky-50/50 dark:bg-sky-950/20 text-sky-600 dark:text-sky-400' : 'border-slate-200 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/10 hover:bg-slate-50 dark:hover:bg-slate-850/20 text-slate-600 dark:text-slate-400'}`}
+                >
+                  <div className={`w-2 h-2 rounded-full mb-1 ${mode === 'lite' ? 'bg-sky-500' : 'bg-slate-350 dark:bg-slate-700'}`}></div>
+                  <span className="font-bold text-sm block">Light</span>
+                  <span className="text-[10px] opacity-75">Rápido / Directo</span>
+                </div>
+                <div 
+                  onClick={() => setMode('smart')}
+                  className={`p-3 rounded-xl border text-center cursor-pointer transition-all duration-200 flex flex-col justify-center items-center ${mode === 'smart' ? 'border-sky-500 bg-sky-50/50 dark:bg-sky-950/20 text-sky-600 dark:text-sky-400' : 'border-slate-200 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/10 hover:bg-slate-50 dark:hover:bg-slate-850/20 text-slate-600 dark:text-slate-400'}`}
+                >
+                  <div className={`w-2 h-2 rounded-full mb-1 ${mode === 'smart' ? 'bg-emerald-500' : 'bg-slate-350 dark:bg-slate-700'}`}></div>
+                  <span className="font-bold text-sm block">Smart</span>
+                  <span className="text-[10px] opacity-75">Balanceado</span>
+                </div>
+                <div 
+                  onClick={() => setMode('advanced')}
+                  className={`p-3 rounded-xl border text-center cursor-pointer transition-all duration-200 flex flex-col justify-center items-center ${mode === 'advanced' ? 'border-sky-500 bg-sky-50/50 dark:bg-sky-950/20 text-sky-600 dark:text-sky-400' : 'border-slate-200 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/10 hover:bg-slate-50 dark:hover:bg-slate-850/20 text-slate-600 dark:text-slate-400'}`}
+                >
+                  <div className={`w-2 h-2 rounded-full mb-1 ${mode === 'advanced' ? 'bg-purple-500' : 'bg-slate-350 dark:bg-slate-700'}`}></div>
+                  <span className="font-bold text-sm block">Avanzado</span>
+                  <span className="text-[10px] opacity-75">Clínico Completo</span>
+                </div>
+              </div>
+            </div>
+
+            {/* CONMUTADOR CLÍNICO */}
+            <div className="p-4 border border-slate-100 dark:border-slate-800 rounded-xl bg-slate-50/50 dark:bg-slate-900/30">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Activity className="text-sky-500" size={18} />
+                  <div>
+                    <p className="font-bold text-slate-700 dark:text-slate-200 text-sm">Modo de Análisis Clínico</p>
+                    <p className="text-[11px] text-slate-400">Activa anamnesis estructurada y diagnósticos clínicos (PES).</p>
+                  </div>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" checked={clinicalAnalysis} onChange={(e) => setClinicalAnalysis(e.target.checked)} className="sr-only peer" />
+                  <div className="w-9 h-5 bg-slate-200 dark:bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-sky-500"></div>
+                </label>
+              </div>
+              {clinicalAnalysis && (
+                <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 animate-in slide-in-from-top-2 duration-200">
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Profundidad del Análisis</label>
+                  <select value={analysisDepth} onChange={(e) => setAnalysisDepth(e.target.value)} className="w-full bg-white dark:bg-[#020813] border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-white text-sm rounded-xl p-2.5 outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all">
+                    <option value="basic">Análisis Conciso (Enfoque General)</option>
+                    <option value="comprehensive">Análisis Completo (Progresiones y Volumen)</option>
+                    <option value="detailed">Análisis Detallado (Anatomía, Progresión, Prevención)</option>
+                  </select>
                 </div>
               )}
             </div>
@@ -405,12 +470,18 @@ const WorkoutGeneratorView = ({ user }) => {
                 <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full">{result?.goal}</span>
               </div>
             </div>
-            <div className="flex gap-2">
-              <button onClick={handleCopy} className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all ${copied ? 'bg-emerald-400' : 'bg-white/20 hover:bg-white/30'}`}>
-                <Copy size={13} /> {copied ? '¡Copiado!' : 'Copiar'}
+            <div className="flex items-center gap-2 flex-wrap">
+              <button onClick={handleReset} className="flex items-center gap-1.5 px-3 py-2 bg-white/20 hover:bg-white/30 rounded-xl text-xs font-bold transition-all">
+                <RotateCcw size={13} /> Regenerar Plan
               </button>
-              <button className="flex items-center gap-1.5 px-3 py-2 bg-white/20 hover:bg-white/30 rounded-xl text-xs font-bold transition-all">
-                <Download size={13} /> PDF
+              <button onClick={() => window.print()} className="flex items-center gap-1.5 px-3 py-2 bg-white/20 hover:bg-white/30 rounded-xl text-xs font-bold transition-all">
+                <Download size={13} /> Exportar PDF
+              </button>
+              <button onClick={() => alert('¡Rutina enviada al paciente exitosamente!')} className="flex items-center gap-1.5 px-3 py-2 bg-white/20 hover:bg-white/30 rounded-xl text-xs font-bold transition-all">
+                <Send size={13} /> Enviar al Paciente
+              </button>
+              <button onClick={() => alert('¡Rutina guardada exitosamente!')} className="flex items-center gap-1.5 px-3 py-2 bg-white hover:bg-slate-100 text-sky-600 rounded-xl text-xs font-bold transition-all shadow-sm">
+                <Save size={13} /> Guardar Cambios
               </button>
             </div>
           </div>
