@@ -32,8 +32,8 @@ Aunque tenemos las vistas "DietGeneratorView" y "WorkoutGeneratorView", hay que 
 4. AGENDA / CITAS
 =================================================================================
 Nuestra vista de Agenda debe incluir un modal robusto para "Programar Cita" con los siguientes campos:
-[ ] Modal de Programar Cita: Selector de paciente, Selector de fecha, Tipo de cita (Videollamada, Llamada telefónica, Presencial), Ubicación/Consultorio y Hora.
-[ ] Estados de Cita: Botones en la cita agendada para marcarla como "Confirmada", "Completada" o "Cancelada".
+[x] Modal de Programar Cita: Selector de paciente, Selector de fecha, Tipo de cita (Videollamada, Llamada telefónica, Presencial), Ubicación/Consultorio y Hora.
+[x] Estados de Cita: Botones en la cita agendada para marcarla como "Confirmada", "Completada" o "Cancelada".
 
 =================================================================================
 5. CONFIGURACIÓN Y OTROS

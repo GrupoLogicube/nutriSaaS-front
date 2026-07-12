@@ -1,5 +1,5 @@
 🗓️ Daily - Front
 
-⏪ Ayer: Se completó el Item 2 del análisis (Perfil del Paciente). Se agregaron los Marcadores Bioquímicos, Recordatorio 24h avanzado y Tabla de Intercambio.
-⏩ Hoy: Se realizó una revisión de internacionalización en todo el Frontend. Se identificaron y tradujeron diversas etiquetas, títulos y componentes que permanecían en inglés (ej. en el Sidebar y en la vista de agregar Nuevo Paciente) para garantizar que toda la interfaz esté 100% en español.
-🛑 Bloqueos: Ninguno por el momento para avanzar al Item 3.
+⏪ Ayer: Se completó el Item 3 (Generadores de IA).
+⏩ Hoy: Se completó el Item 4 (Agenda / Citas). Se actualizó el modal de creación de citas con todos los campos requeridos y se añadió el modal de detalles para actualizar los estados de las citas (Confirmada, Completada, Cancelada).
+🛑 Bloqueos: Ninguno por el momento para avanzar al Item 5.

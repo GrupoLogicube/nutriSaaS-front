@@ -30,9 +30,10 @@ const formatDateForInput = (date) => {
 const AgendaView = ({ user }) => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedEvent, setSelectedEvent] = useState(null);
 
     // Estado para pre-llenar el modal
-    const [formData, setFormData] = useState({ date: '', time: '09:00', duration: '60' });
+    const [formData, setFormData] = useState({ date: '', time: '09:00', duration: '60', type: 'Videollamada', location: '' });
 
     // Estado para el filtro del listado inferior
     const [listFilter, setListFilter] = useState('week'); // 'week' | 'month'
@@ -134,6 +135,7 @@ const AgendaView = ({ user }) => {
         const newEventPayload = {
             paciente_nombre: form.get('patient'),
             tipo: form.get('type'),
+            ubicacion: form.get('location'),
             // Formato SQL compatible: "YYYY-MM-DD HH:MM:SS"
             fecha_hora_inicio: datePart + ' ' + timePart + ':00',
             duracion_minutos: parseInt(form.get('duration'))
@@ -167,6 +169,13 @@ const AgendaView = ({ user }) => {
             }
         } catch (err) {
             console.error("Error creating cita:", err);
+        }
+    };
+
+    const updateEventStatus = (id, newStatus) => {
+        setEvents(prev => prev.map(ev => ev.id === id ? { ...ev, status: newStatus } : ev));
+        if (selectedEvent && selectedEvent.id === id) {
+            setSelectedEvent(prev => ({ ...prev, status: newStatus }));
         }
     };
 
@@ -236,9 +245,9 @@ const AgendaView = ({ user }) => {
                                         ))}
                                         {dayEvents.map(ev => {
                                             const style = getEventStyle(ev);
-                                            const isOnline = ev.type === 'Online';
+                                            const isOnline = ev.type === 'Videollamada' || ev.type === 'Online';
                                             return (
-                                                <div key={ev.id} style={style} className={`absolute inset-x-1 p-2 rounded-xl border text-xs shadow-sm cursor-pointer overflow-hidden hover:scale-[1.02] hover:z-10 transition-all flex flex-col justify-between ${isOnline ? 'bg-purple-100 dark:bg-purple-900/40 border-purple-200 dark:border-purple-700/50 text-purple-800 dark:text-purple-200' : 'bg-blue-100 dark:bg-blue-900/40 border-blue-200 dark:border-blue-700/50 text-blue-800 dark:text-blue-200'}`}>
+                                                <div key={ev.id} style={style} onClick={(e) => { e.stopPropagation(); setSelectedEvent(ev); }} className={`absolute inset-x-1 p-2 rounded-xl border text-xs shadow-sm cursor-pointer overflow-hidden hover:scale-[1.02] hover:z-10 transition-all flex flex-col justify-between ${isOnline ? 'bg-purple-100 dark:bg-purple-900/40 border-purple-200 dark:border-purple-700/50 text-purple-800 dark:text-purple-200' : 'bg-blue-100 dark:bg-blue-900/40 border-blue-200 dark:border-blue-700/50 text-blue-800 dark:text-blue-200'}`}>
                                                     <div className="flex justify-between items-start"><span className="font-bold truncate">{ev.patient}</span>{isOnline ? <Video size={12} className="shrink-0" /> : <MapPin size={12} className="shrink-0" />}</div>
                                                     <div className="flex items-center gap-1 opacity-80"><Clock size={10} /><span>{formatTime(ev.start)} ({ev.duration}m)</span></div>
                                                 </div>
@@ -292,20 +301,24 @@ const AgendaView = ({ user }) => {
                         <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                             {filteredListEvents.length > 0 ? (
                                 filteredListEvents.map((ev) => (
-                                    <tr key={ev.id} className="hover:bg-slate-50 dark:hover:bg-slate-850/20 transition-colors">
+                                    <tr key={ev.id} onClick={() => setSelectedEvent(ev)} className="hover:bg-slate-50 dark:hover:bg-slate-850/20 transition-colors cursor-pointer">
                                         <td className="px-6 py-4 font-bold text-slate-700 dark:text-white">
                                             {ev.start.toLocaleDateString()} <span className="text-slate-400 font-normal mx-1">|</span> {formatTime(ev.start)}
                                         </td>
                                         <td className="px-6 py-4 text-sky-600 font-medium">{ev.patient}</td>
                                         <td className="px-6 py-4">
-                                            <span className={`text-[10px] px-2 py-0.5 rounded border font-bold ${ev.type === 'Online' ? 'bg-purple-50 text-purple-600 border-purple-200' : 'bg-blue-50 text-blue-600 border-blue-200'}`}>
+                                            <span className={`text-[10px] px-2 py-0.5 rounded border font-bold ${ev.type === 'Videollamada' || ev.type === 'Online' ? 'bg-purple-50 text-purple-600 border-purple-200' : 'bg-blue-50 text-blue-600 border-blue-200'}`}>
                                                 {ev.type}
                                             </span>
                                         </td>
                                         <td className="px-6 py-4 text-slate-500">{ev.duration} min</td>
                                         <td className="px-6 py-4">
-                                            <span className="bg-slate-100 text-slate-600 px-2 py-1 rounded text-xs font-bold capitalize">
-                                                {ev.status}
+                                            <span className={`px-2 py-1 rounded text-xs font-bold capitalize
+                                                ${ev.status === 'Confirmada' ? 'bg-green-100 text-green-700' : 
+                                                  ev.status === 'Completada' ? 'bg-blue-100 text-blue-700' : 
+                                                  ev.status === 'Cancelada' ? 'bg-red-100 text-red-700' : 
+                                                  'bg-slate-100 text-slate-600'}`}>
+                                                {ev.status || 'Pendiente'}
                                             </span>
                                         </td>
                                     </tr>
@@ -355,17 +368,30 @@ const AgendaView = ({ user }) => {
                                         />
                                     </div>
                                 </div>
-                                <div>
-                                    <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Paciente</label>
-                                    <input required name="patient" type="text" placeholder="Nombre del paciente..." className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-2.5 text-sm outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 dark:text-white" />
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Paciente</label>
+                                        <select required name="patient" className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-2.5 text-sm outline-none dark:text-white focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                            <option value="">Seleccionar paciente...</option>
+                                            <option value="Ana Martínez">Ana Martínez</option>
+                                            <option value="Carlos López">Carlos López</option>
+                                            <option value="María Fernández">María Fernández</option>
+                                            <option value="Juan Pérez">Juan Pérez</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Tipo de Cita</label>
+                                        <select name="type" defaultValue={formData.type} className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-2.5 text-sm outline-none dark:text-white focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                            <option value="Videollamada">Videollamada</option>
+                                            <option value="Llamada telefónica">Llamada telefónica</option>
+                                            <option value="Presencial">Presencial</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Tipo</label>
-                                        <select name="type" className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-2.5 text-sm outline-none dark:text-white focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
-                                            <option value="Online">Online</option>
-                                            <option value="Presencial">Presencial</option>
-                                        </select>
+                                        <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Ubicación / Consultorio / Enlace</label>
+                                        <input name="location" type="text" defaultValue={formData.location} placeholder="Ej. Consultorio 3..." className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-2.5 text-sm outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 dark:text-white" />
                                     </div>
                                     <div>
                                         <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Duración</label>
@@ -383,6 +409,57 @@ const AgendaView = ({ user }) => {
                                 <button type="submit" className="btn-brand px-4 py-2 text-sm rounded-xl">Guardar Cita</button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            )}
+        </div>
+
+            {/* --- MODAL DETALLES DE CITA --- */}
+            {selectedEvent && (
+                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                    <div className="bg-white dark:bg-[#020813] rounded-2xl shadow-2xl w-full max-w-sm animate-in zoom-in-95 duration-200 border border-slate-200 dark:border-slate-800 overflow-hidden">
+                        <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50">
+                            <h3 className="font-bold text-lg dark:text-white">Detalles de la Cita</h3>
+                            <button onClick={() => setSelectedEvent(null)} className="text-slate-400 hover:text-slate-600"><X size={20} /></button>
+                        </div>
+                        <div className="p-6 space-y-4">
+                            <div>
+                                <p className="text-xs text-slate-500 font-bold uppercase">Paciente</p>
+                                <p className="text-lg font-bold text-slate-800 dark:text-white">{selectedEvent.patient}</p>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <p className="text-xs text-slate-500 font-bold uppercase">Fecha y Hora</p>
+                                    <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                                        {selectedEvent.start.toLocaleDateString()} a las {formatTime(selectedEvent.start)}
+                                    </p>
+                                </div>
+                                <div>
+                                    <p className="text-xs text-slate-500 font-bold uppercase">Tipo y Duración</p>
+                                    <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                                        {selectedEvent.type} ({selectedEvent.duration} min)
+                                    </p>
+                                </div>
+                            </div>
+                            <div>
+                                <p className="text-xs text-slate-500 font-bold uppercase">Estado Actual</p>
+                                <span className={`inline-block mt-1 px-3 py-1 rounded-full text-xs font-bold capitalize
+                                    ${selectedEvent.status === 'Confirmada' ? 'bg-green-100 text-green-700' : 
+                                      selectedEvent.status === 'Completada' ? 'bg-blue-100 text-blue-700' : 
+                                      selectedEvent.status === 'Cancelada' ? 'bg-red-100 text-red-700' : 
+                                      'bg-slate-100 text-slate-700'}`}>
+                                    {selectedEvent.status || 'Pendiente'}
+                                </span>
+                            </div>
+                        </div>
+                        <div className="p-5 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 flex flex-col gap-2">
+                            <p className="text-xs text-slate-500 font-bold uppercase mb-1">Cambiar Estado</p>
+                            <div className="grid grid-cols-3 gap-2">
+                                <button onClick={() => updateEventStatus(selectedEvent.id, 'Confirmada')} className="px-2 py-2 bg-green-50 hover:bg-green-100 text-green-600 border border-green-200 rounded-lg text-xs font-bold transition-colors">Confirmar</button>
+                                <button onClick={() => updateEventStatus(selectedEvent.id, 'Completada')} className="px-2 py-2 bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 rounded-lg text-xs font-bold transition-colors">Completar</button>
+                                <button onClick={() => updateEventStatus(selectedEvent.id, 'Cancelada')} className="px-2 py-2 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 rounded-lg text-xs font-bold transition-colors">Cancelar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}
